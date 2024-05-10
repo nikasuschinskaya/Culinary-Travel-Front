@@ -69,11 +69,15 @@ const Register = () => {
         // className="containerReg"
         <Container style={{ width: '500px'}}>  
             {success ? (
-                <Alert variant="success">
-                    <Alert.Heading>Успешно!</Alert.Heading>
-                    <p> 
-                        <a href="#">Войти</a>
-                    </p>
+                <Alert variant="success" className='successAlert'>
+                    <img 
+                        src='https://lh3.googleusercontent.com/pw/AP1GczO4G2zAFRWAP4UL-aeXynmR89BSsZQgYNGbSIbfBkji6Ys4GGvUJfAzfq7jOSiaO4-GaEK3bghxRxjozf0nTiwYzH8pNC6yFpyRK0ioik6H6PQ6nGFBnBl2JGCvw71xjh8YT5RzYG5lHYFlwpjGbycn=w800-h800-s-no-gm?authuser=0' 
+                        alt="Успешно!" 
+                        width='50'
+                        height='50'
+                    />
+                    <Alert.Heading>Вы успешно зарегистрированы!</Alert.Heading>
+                    <p>Для входа в приложение нажмите на кнопку "Вход"</p>
                 </Alert>
             ) : (
                 <section>
