@@ -6,9 +6,13 @@ import styles from "./home.module.css";
 export const HomePage = () => {
   const [countries, setCountries] = useState([]);
 
+  const fetchData = async () => {
+    const data = await CulinaryApi.fetchCountries();
+    setCountries(data);
+  }
+  
   useEffect(() => {
-    const data = CulinaryApi.fetchCountries();
-    setCountries([]);
+    fetchData();
   }, []);
 
   return (

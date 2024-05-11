@@ -53,6 +53,7 @@ class CulinaryApi {
   async fetchCountries() {
     try {
       const { data } = await axios.get(`${baseUrl}/Country/all`);
+      // console.log(data);
       return data;
     } catch (error) {
       console.error("Error fetching countries:", error);
