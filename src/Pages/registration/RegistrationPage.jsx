@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { USER_REGEX, PWD_REGEX } from "../../utils/validation";
 import CulinaryApi from "../../api";
 
-import "./registration.css";
+import styles from "./registration.module.css";
 
 export const RegistrationPage = () => {
   const [user, setUser] = useState("");
@@ -56,21 +56,15 @@ export const RegistrationPage = () => {
   };
 
   return (
-    // className="containerReg"
-    <Container style={{ width: "500px" }}>
+    <Container className="d-flex align-items-center justify-content-center">
       {success ? (
-        <Alert variant="success" className="successAlert">
-          <img
-            src="https://lh3.googleusercontent.com/pw/AP1GczO4G2zAFRWAP4UL-aeXynmR89BSsZQgYNGbSIbfBkji6Ys4GGvUJfAzfq7jOSiaO4-GaEK3bghxRxjozf0nTiwYzH8pNC6yFpyRK0ioik6H6PQ6nGFBnBl2JGCvw71xjh8YT5RzYG5lHYFlwpjGbycn=w800-h800-s-no-gm?authuser=0"
-            alt="Успешно!"
-            width="50"
-            height="50"
-          />
+        <Alert variant="success" className={styles.successAlert}>
+          <img src="/images/success.png" alt="Успешно!" width="50" height="50" />
           <Alert.Heading>Вы успешно зарегистрированы!</Alert.Heading>
           <p>Для входа в приложение нажмите на кнопку {"Вход"}</p>
         </Alert>
       ) : (
-        <section>
+        <section className={styles.root}>
           <Alert variant="danger" show={errMsg !== ""}>
             {errMsg}
           </Alert>
@@ -88,10 +82,13 @@ export const RegistrationPage = () => {
                   isInvalid={userFocus && user && !validName}
                 />
                 <Button variant="outline-secondary" disabled={!validName}>
-                  <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className={validName ? styles.valid : styles.hide}
+                  />
                   <FontAwesomeIcon
                     icon={faTimes}
-                    className={validName || !user ? "hide" : "invalid"}
+                    className={validName || !user ? styles.hide : styles.invalid}
                   />
                 </Button>
               </InputGroup>
@@ -117,10 +114,13 @@ export const RegistrationPage = () => {
                   isInvalid={pwdFocus && !validPwd}
                 />
                 <Button variant="outline-secondary" disabled={!validPwd}>
-                  <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className={validPwd ? styles.valid : styles.hide}
+                  />
                   <FontAwesomeIcon
                     icon={faTimes}
-                    className={validPwd || !pwd ? "hide" : "invalid"}
+                    className={validPwd || !pwd ? styles.hide : styles.invalid}
                   />
                 </Button>
               </InputGroup>
@@ -129,9 +129,9 @@ export const RegistrationPage = () => {
                   <span>
                     <FontAwesomeIcon icon={faInfoCircle} />
                     От 8 до 24 символов. Должно содержать прописные и строчные буквы, цифры и
-                    специальные символы. Разрешенные специальные символы:{" "}
-                    <span aria-label="exclamation mark">!</span>{" "}
-                    <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span>{" "}
+                    специальные символы. Разрешенные специальные символы:
+                    <span aria-label="exclamation mark">!</span>
+                    <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span>
                     <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                   </span>
                 )}
@@ -151,11 +151,11 @@ export const RegistrationPage = () => {
                 <Button variant="outline-secondary" disabled={!validMatch}>
                   <FontAwesomeIcon
                     icon={faCheck}
-                    className={validMatch && matchPwd ? "valid" : "hide"}
+                    className={validMatch && matchPwd ? styles.valid : styles.hide}
                   />
                   <FontAwesomeIcon
                     icon={faTimes}
-                    className={validMatch || !matchPwd ? "hide" : "invalid"}
+                    className={validMatch || !matchPwd ? styles.hide : styles.invalid}
                   />
                 </Button>
               </InputGroup>

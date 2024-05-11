@@ -1,0 +1,43 @@
+.root {
+  margin-top: 50px;
+  width: 100%;
+  max-width: 600px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 40px;
+  margin-top: 50px;
+  background-image: url("/images/check-list.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+label {
+  font-weight: bold;
+}
+
+.alert {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.successAlert {
+  position: fixed !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}

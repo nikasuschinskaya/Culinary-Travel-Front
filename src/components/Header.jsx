@@ -6,18 +6,17 @@ export const Header = () => {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" className="w-100">
-        {/*fixed='top' */}
+      <Navbar
+        collapseOnSelect
+        expand="md"
+        bg="dark"
+        variant="dark"
+        className="w-100 d-flex align-items-center justify-content-between"
+      >
         <Container>
           {/* <Navbar.Brand as={Link} to='/'>  */}
-          <Navbar.Brand>
-            <img
-              src="/images/logo.jpg"
-              height="40"
-              width="40"
-              className="d-inline-block align-top"
-              alt="Logo"
-            />{" "}
+          <Navbar.Brand className="d-flex align-items-center gap-3">
+            <img src="/images/logo.jpg" height="40" width="40" alt="Logo" />
             Culinary Travel
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -31,8 +30,7 @@ export const Header = () => {
             <Form className="d-flex">
               {location.pathname === "/" && (
                 <Button variant="outline-info" href="/login">
-                  {" "}
-                  Войти{" "}
+                  Войти
                 </Button>
               )}
               {/* {location.pathname === '/home' && (

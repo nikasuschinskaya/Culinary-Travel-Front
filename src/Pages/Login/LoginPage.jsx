@@ -3,7 +3,7 @@ import { Button, Container, Form, InputGroup, FormControl, Alert } from "react-b
 
 import CulinaryApi from "../../api";
 
-import "./login.css";
+import styles from "./login.module.css";
 
 export const LoginPage = () => {
   const [user, setUser] = useState("");
@@ -38,11 +38,11 @@ export const LoginPage = () => {
   }, [user, pwd]);
 
   return (
-    <Container style={{ width: "500px" }}>
+    <Container className="d-flex align-items-center justify-content-center">
       {success ? (
-        <Alert variant="success" className="successAlert">
+        <Alert variant="success" className={styles.successAlert}>
           <img
-            src="https://lh3.googleusercontent.com/pw/AP1GczO4G2zAFRWAP4UL-aeXynmR89BSsZQgYNGbSIbfBkji6Ys4GGvUJfAzfq7jOSiaO4-GaEK3bghxRxjozf0nTiwYzH8pNC6yFpyRK0ioik6H6PQ6nGFBnBl2JGCvw71xjh8YT5RzYG5lHYFlwpjGbycn=w800-h800-s-no-gm?authuser=0"
+            src="/images/success.png"
             alt="Успешно!"
             width="50"
             height="50"
@@ -55,11 +55,11 @@ export const LoginPage = () => {
           </Button>
         </Alert>
       ) : (
-        <section>
+        <section className={styles.root}>
           <Alert variant="danger" show={errMsg !== ""}>
             {errMsg}
           </Alert>
-          <h1>Вход</h1>
+          <h1 className={styles.title}>Вход</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="loginUsername">
               <Form.Label>Имя пользователя:</Form.Label>
@@ -73,7 +73,7 @@ export const LoginPage = () => {
                 <FormControl type="password" value={pwd} onChange={(e) => setPwd(e.target.value)} />
               </InputGroup>
             </Form.Group>
-            <Button variant="primary" type="submit" disabled={!isFormValid}>
+            <Button variant="primary" type="submit" className="w-100" disabled={!isFormValid}>
               Войти
             </Button>
           </Form>

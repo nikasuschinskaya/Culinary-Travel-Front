@@ -1,3 +1,9 @@
+@import url("./fonts.global.css");
+
+:root {
+  --body-font: "Nunito", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -51,12 +57,12 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
+  font-family: var(--body-font);
 }
 
 #root {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   width: 100%;
   min-height: 100vh;
 }
