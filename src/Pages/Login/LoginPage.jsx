@@ -11,6 +11,7 @@ export const LoginPage = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [userData, setUserData] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,12 +19,17 @@ export const LoginPage = () => {
       setErrMsg("Поля не могут быть пустыми");
       return;
     }
-    const { status, message } = await CulinaryApi.login(user, pwd);
+    const { status, message, data } = await CulinaryApi.login(user, pwd);
 
     if (status !== 200) {
       setErrMsg(message);
       return;
     }
+
+ 
+    setUserData(data);
+    localStorage.setItem('userPoints', data.points);
+    localStorage.setItem('userName', data.name);
 
     setPwd("");
     setSuccess(true);
@@ -48,8 +54,9 @@ export const LoginPage = () => {
             height="50"
           />
           <Alert.Heading>Успешный вход!</Alert.Heading>
-          <p>Ваше имя пользователя: {user}</p>
-          <p>Теперь вы можете получить доступ к своему аккаунту.</p>
+            <p>Ваше имя пользователя: {userData.name}</p>
+            <p>Ваши баллы: {userData.points}</p>
+            <p>Теперь вы можете получить доступ к своему аккаунту.</p>
           <Button variant="primary" href="/home">
             Далее
           </Button>

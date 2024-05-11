@@ -1,8 +1,23 @@
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button, Container, Nav, Navbar, Form } from "react-bootstrap";
 
 export const Header = () => {
   const location = useLocation();
+
+  const [userPoints, setUserPoints] = useState(localStorage.getItem('userPoints'));
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setUserPoints(localStorage.getItem('userPoints'));
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   return (
     <>
@@ -27,14 +42,17 @@ export const Header = () => {
               {/* <Nav.Link href='/register'> Register </Nav.Link> */}
             </Nav>
             <Form className="d-flex">
+              {(location.pathname !== "/" && location.pathname !== "/login") && (
+                <Navbar.Brand> 
+                  {userPoints}
+                  <img src="/images/points.png" height="35" width="35" alt="Points" />
+                </Navbar.Brand>
+              )}
               {location.pathname === "/" && (
                 <Button variant="outline-info" href="/login">
                   Войти
                 </Button>
               )}
-              {/* {location.pathname === '/home' && (
-
-                            )} */}
             </Form>
           </Navbar.Collapse>
         </Container>

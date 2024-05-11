@@ -9,9 +9,9 @@ class CulinaryApi {
       console.log(response?.data);
       console.log(response?.accessToken);
       console.log(JSON.stringify(response));
-      localStorage.setItem('user', user);
+      // localStorage.setItem('user', user);
 
-      return { status: 200, message: 'success' };
+      return { status: 200, message: 'success', data: response.data };
     } catch (err) {
       if (!err?.response) {
         return { status: 500, message: 'Нет ответа сервера' };

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 import CulinaryApi from "../../api";
 
 import styles from "./home.module.css";
@@ -15,6 +16,13 @@ export const HomePage = () => {
     fetchData();
   }, []);
 
+  const handleBuyCountry = async (shortName, pointsToOpen) => {
+    // const response = await CulinaryApi.buyCountry(shortName);
+    
+    fetchData();
+    // localStorage.getItem('userPoints') -= pointsToOpen;
+  };
+
   return (
     <div className={styles["home-container"]}>
       <h1>Страны</h1>
@@ -28,7 +36,13 @@ export const HomePage = () => {
               style={{ width: "50%", height: "auto" }}
             />
             <h3>{country.name}</h3>
-            <p>Сумма для покупки: {country.pointsToOpen}</p>
+            <p>Стоимость открытия страны: {country.pointsToOpen} <img src="/images/points.png" height="30" width="30" alt="Points" /></p> 
+            <Button 
+              onClick={() => handleBuyCountry(country.shortName, country.pointsToOpen)}
+              disabled={localStorage.getItem('userPoints') < country.pointsToOpen}
+              >
+                Открыть страну
+            </Button>
           </div>
         ))}
       </div>
