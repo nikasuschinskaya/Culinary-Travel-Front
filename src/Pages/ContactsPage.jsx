@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 
 export default class Contacts extends Component {
@@ -11,7 +11,7 @@ export default class Contacts extends Component {
                         <Form.Label>Email adress</Form.Label>
                         <Form.Control type='email' placeholder='Enter email'/>
                         <Form.Text>
-                            We'll never share your email with anyone else
+                            {"We'll"} never share your email with anyone else
                         </Form.Text>
                     </Form.Group>
 
