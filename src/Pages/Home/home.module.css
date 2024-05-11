@@ -1,0 +1,31 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("/images/check-list.png"); /* Путь к вашему новому изображению */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.countries-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.country-item {
+  margin: 20px;
+  padding: 20px;
+  background-color: var(--background-white);
+  border-radius: 10px;
+  box-shadow: var(--box-shadow-f1);
+  text-align: center;
+}
+
+.country-flag {
+  width: 100px;
+  height: auto;
+}
