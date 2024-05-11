@@ -14,7 +14,6 @@ export const Header = () => {
         className="w-100 d-flex align-items-center justify-content-between"
       >
         <Container>
-          {/* <Navbar.Brand as={Link} to='/'>  */}
           <Navbar.Brand className="d-flex align-items-center gap-3">
             <img src="/images/logo.jpg" height="40" width="40" alt="Logo" />
             Culinary Travel
