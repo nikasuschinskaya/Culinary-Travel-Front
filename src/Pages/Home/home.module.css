@@ -19,9 +19,9 @@
 .country-item {
   margin: 20px;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: var(--background-white);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow-f1);
   text-align: center;
 }
 

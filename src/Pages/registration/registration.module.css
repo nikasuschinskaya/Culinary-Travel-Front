@@ -21,7 +21,7 @@ body {
 
 a,
 a:visited {
-  color: #fff;
+  color: var(--color-white);
 }
 
 input[type="text"],
@@ -34,7 +34,7 @@ textarea {
 }
 
 .successAlert {
-  position: fixed;
+  position: fixed !important;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -46,11 +46,16 @@ textarea {
 }
 
 .valid {
-  color: limegreen;
-  margin-left: 0.25rem;
+  color: var(--color-valid);
 }
 
 .invalid {
-  color: red;
+  color: var(--color-invalid);
+}
+
+.valid,
+.invalid {
   margin-left: 0.25rem;
+  width: 20px;
+  height: 20px;
 }

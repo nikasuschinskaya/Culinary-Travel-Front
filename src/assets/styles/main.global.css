@@ -1,6 +1,19 @@
 @import url("./fonts.global.css");
 
 :root {
+
+  --color-white: #fff;
+  --color-black: #000;
+  --color-primary: #0056b3;
+  --color-valid: limegreen;
+  --color-invalid: red;
+
+  --border-primary: #0056b3;
+
+  --background-white: #ffffff;
+
+  --box-shadow-f1: 0 0 10px rgba(0, 0, 0, 0.1);
+
   --body-font: "Nunito", sans-serif;
 }
 
