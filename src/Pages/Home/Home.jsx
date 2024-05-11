@@ -8,7 +8,7 @@ const Home = () => {
     useEffect(() => {
         const fetchCountries = async () => {
             try {
-                const response = await axios.get('/api/countries/all');
+                const response = await axios.get('/api/Country/all');
                 setCountries(response.data);
             } catch (error) {
                 console.error('Error fetching countries:', error);
@@ -28,7 +28,7 @@ const Home = () => {
                             src={country.flagURL}
                             alt={`${country.name} flag`}
                             className="country-flag"
-                            style={{ width: '50%', height: 'auto' }} // Установка нового размера изображений
+                            style={{ width: '50%', height: 'auto' }}
                         />
                         <h3>{country.name}</h3>
                         <p>Сумма для покупки: {country.pointsToOpen}</p>

@@ -12,14 +12,12 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div className="App">
           <Header />
           <Routes>
               <Route exact path='/' element={<Register />} />
               <Route path='/login' element={<Login />} />
               <Route path='/home' element={<Home />} />
           </Routes>
-        </div>
       </BrowserRouter>
     </>
   );
