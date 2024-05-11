@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, Form, InputGroup, FormControl, Alert } from 'react-bootstrap';
+import { Button, Container, Form, InputGroup, FormControl, Alert } from 'react-bootstrap'; 
 import axios from '../../api/axios';
 import './Login.css';
 
@@ -21,7 +21,6 @@ const Login = () => {
 
         try {
             const response = await axios.post(LOGIN_URL, { login: user, password: pwd }, { withCredentials: true });
-            // Обработка успешного входа пользователя
             console.log(response?.data);
             console.log(response?.accessToken);
             console.log(JSON.stringify(response));
@@ -60,7 +59,7 @@ const Login = () => {
                     <Alert.Heading>Успешный вход!</Alert.Heading>
                     <p>Ваше имя пользователя: {user}</p>
                     <p>Теперь вы можете получить доступ к своему аккаунту.</p>
-                    
+                    <Button variant="primary" href='/home'>Далее</Button>
                 </Alert>
             ) : (
                 <section>

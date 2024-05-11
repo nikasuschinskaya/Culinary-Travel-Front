@@ -1,0 +1,31 @@
+.home-container {
+    background-image: url('https://lh3.googleusercontent.com/pw/AP1GczPWq24_FWKEOhuxyEpV-g7xYexw5Docsl4xszX7tY6dqI-E_G1RpmnQXp6aEo4eK1cgkLVLV7FJDliDZ2YcYOZjM_ep9Zrtv_MSWmMhqKiwsBJ02kUSIimUGTVDIRtGaASbHLq3ZiHVLtbZyrWqc4EN=w1205-h895-s-no-gm?authuser=0'); /* Путь к вашему новому изображению */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.countries-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.country-item {
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.country-flag {
+    width: 100px;
+    height: auto;
+}
