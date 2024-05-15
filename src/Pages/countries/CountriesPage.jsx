@@ -1,33 +1,32 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Carousel } from "react-bootstrap";
-import { useUserPoints } from "../../context/UserPointsContext";
+
+import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
 
+import { Button } from "react-bootstrap";
 import styles from "./countries.module.css";
 
-
 export const CountriesPage = () => {
-  const { userPoints, updateUserPoints } = useUserPoints();
+  const { userPoints, setUserPoints } = useUserContext();
   const [countries, setCountries] = useState([]);
   const navigate = useNavigate();
-
 
   const fetchData = async () => {
     const data = await CulinaryApi.fetchCountries();
     setCountries(data);
-  }
-  
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   const handleBuyCountry = async (shortName, pointsToOpen) => {
     // const response = await CulinaryApi.buyCountry(shortName);
-    
+
     // fetchData();
     const newUserPoints = parseInt(userPoints) - pointsToOpen;
-    updateUserPoints(newUserPoints);
+    setUserPoints(newUserPoints);
 
     navigate(`/book/${shortName}`);
   };
@@ -45,17 +44,20 @@ export const CountriesPage = () => {
               style={{ width: "25%", height: "auto" }}
             />
             <h3>{country.name}</h3>
-            <p>Стоимость открытия страны: {country.pointsToOpen} <img src="/images/points.png" height="30" width="30" alt="Points" /></p> 
-            <Button 
+            <p>
+              Стоимость открытия страны: {country.pointsToOpen}{" "}
+              <img src="/images/points.png" height="30" width="30" alt="Points" />
+            </p>
+            <Button
               onClick={() => handleBuyCountry(country.shortName, country.pointsToOpen)}
               disabled={parseInt(userPoints) < country.pointsToOpen}
-              >
-                Открыть страну
+            >
+              Открыть страну
             </Button>
           </div>
         ))}
       </div>
-  </div>
+    </div>
   );
 
   // Попытка сделать карусель, чтобы листать страны
@@ -88,5 +90,4 @@ export const CountriesPage = () => {
   //     </div>
   //   </div>
   // );
-
 };

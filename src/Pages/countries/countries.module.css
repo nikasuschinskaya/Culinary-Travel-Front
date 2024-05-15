@@ -9,13 +9,13 @@
     background-repeat: no-repeat;
     min-height: 100vh;
   }
-  
+
   .countries-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .country-item {
     margin: 20px;
     padding: 20px;
@@ -24,18 +24,18 @@
     box-shadow: var(--box-shadow-f1);
     text-align: center;
   }
-  
+
   .country-flag {
     width: 100px;
     height: auto;
-    border: solid 1px gray;
+    border: var(--border-gray);
   }
-  
+
   /* .countries-carousel-wrapper {
-    max-width: 600px; 
+    max-width: 600px;
     margin: auto;
   }
-  
+
   .countries-carousel {
     width: 100%;
     height: auto;

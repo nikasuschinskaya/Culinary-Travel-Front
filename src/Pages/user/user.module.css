@@ -1,25 +1,24 @@
 .user-container {
     padding: 20px;
-    border: 1px solid #ccc;
+    border: var(--border-f1);
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: var(--background-f1);
     margin-bottom: 20px;
   }
-  
+
   .user-details {
     margin-bottom: 20px;
   }
-  
+
   .user-actions {
     display: flex;
     gap: 10px;
   }
-  
+
   .start-journey-button {
-    background-color: #007bff;
+    background-color: var(--background-primary);
   }
-  
+
   .favorites-button {
-    background-color: #6c757d;
+    background-color: var(--background-f2);
   }
-  

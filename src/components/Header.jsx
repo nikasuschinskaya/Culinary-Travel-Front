@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button, Container, Nav, Navbar, Form } from "react-bootstrap";
 
-// import { useUserPoints } from "../hooks/useUserPoints.js"
-import { useUserPoints } from "../context/UserPointsContext"
+import { useUserContext } from "../context/UserContext"
 
 export const Header = () => {
   const location = useLocation();
-  const { userPoints } = useUserPoints();
-  // const [userPoints] = useUserPoints();
-  // const [points, setPoints] = useState(userPoints);
-
-  // useEffect(() => {
-  //   setPoints(userPoints); 
-  // }, [userPoints]);
+  const { userPoints } = useUserContext();
 
   return (
     <>
@@ -39,7 +31,7 @@ export const Header = () => {
             </Nav>
             <Form className="d-flex">
               {(location.pathname !== "/" && location.pathname !== "/login") && (
-                <Navbar.Brand> 
+                <Navbar.Brand>
                   {userPoints}
                   <img src="/images/points.png" height="35" width="35" alt="Points" />
                 </Navbar.Brand>

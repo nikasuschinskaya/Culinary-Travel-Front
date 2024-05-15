@@ -27,7 +27,7 @@ export const LoginPage = () => {
       return;
     }
 
- 
+
     setUserData(data);
     localStorage.setItem('userPoints', data.points);
     localStorage.setItem('userName', data.name);

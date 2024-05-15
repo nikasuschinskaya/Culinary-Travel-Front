@@ -1,7 +1,6 @@
 @import url("./fonts.global.css");
 
 :root {
-
   --color-white: #fff;
   --color-black: #000;
   --color-primary: #0056b3;
@@ -9,8 +8,13 @@
   --color-invalid: red;
 
   --border-primary: #0056b3;
+  --border-gray: 1px solid gray;
+  --border-f1: 1px solid #ccc;
 
   --background-white: #ffffff;
+  --background-primary: #007bff;
+  --background-f1: #f9f9f9;
+  --background-f2: #6c757d;
 
   --box-shadow-f1: 0 0 10px rgba(0, 0, 0, 0.1);
 
@@ -71,6 +75,11 @@ body {
   place-items: center;
   min-width: 320px;
   font-family: var(--body-font);
+  background-image: url("/images/backgroung.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
 }
 
 #root {
