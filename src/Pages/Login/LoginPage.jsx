@@ -4,6 +4,7 @@ import { Button, Container, Form, InputGroup, FormControl, Alert } from "react-b
 import CulinaryApi from "../../api";
 
 import styles from "./login.module.css";
+import { Link } from "react-router-dom";
 
 export const LoginPage = () => {
   const [user, setUser] = useState("");
@@ -30,6 +31,7 @@ export const LoginPage = () => {
     setUserData(data);
     localStorage.setItem('userPoints', data.points);
     localStorage.setItem('userName', data.name);
+    localStorage.setItem('userOpenedCountries', data.openedCountries);
 
     setPwd("");
     setSuccess(true);
@@ -54,12 +56,12 @@ export const LoginPage = () => {
             height="50"
           />
           <Alert.Heading>Успешный вход!</Alert.Heading>
-            <p>Ваше имя пользователя: {userData.name}</p>
-            <p>Ваши баллы: {userData.points}</p>
-            <p>Теперь вы можете получить доступ к своему аккаунту.</p>
-          <Button variant="primary" href="/home">
-            Далее
-          </Button>
+          <p>Ваше имя пользователя: {userData.name}</p>
+          <p>Ваши баллы: {userData.points}</p>
+          <p>Теперь вы можете получить доступ к своему аккаунту.</p>
+          <Link to="/user">
+            <Button variant="primary"> Далее </Button>
+          </Link>
         </Alert>
       ) : (
         <section className={styles.root}>

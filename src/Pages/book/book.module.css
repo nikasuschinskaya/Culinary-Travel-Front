@@ -1,0 +1,15 @@
+.book-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/images/note.png");
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+
+.button {
+    margin: 10px;
+}

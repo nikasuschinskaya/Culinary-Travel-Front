@@ -2,22 +2,18 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button, Container, Nav, Navbar, Form } from "react-bootstrap";
 
+// import { useUserPoints } from "../hooks/useUserPoints.js"
+import { useUserPoints } from "../context/UserPointsContext"
+
 export const Header = () => {
   const location = useLocation();
+  const { userPoints } = useUserPoints();
+  // const [userPoints] = useUserPoints();
+  // const [points, setPoints] = useState(userPoints);
 
-  const [userPoints, setUserPoints] = useState(localStorage.getItem('userPoints'));
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setUserPoints(localStorage.getItem('userPoints'));
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
+  // useEffect(() => {
+  //   setPoints(userPoints); 
+  // }, [userPoints]);
 
   return (
     <>

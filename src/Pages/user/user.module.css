@@ -1,0 +1,25 @@
+.user-container {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+  }
+  
+  .user-details {
+    margin-bottom: 20px;
+  }
+  
+  .user-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .start-journey-button {
+    background-color: #007bff;
+  }
+  
+  .favorites-button {
+    background-color: #6c757d;
+  }
+  
