@@ -7,6 +7,7 @@ import { LoginPage } from "./pages/login";
 import { UserPage } from "./pages/user";
 import { FavouritesPage } from "./pages/favourites";
 import { BookPage } from "./pages/book";
+import { PuzzlePage } from "./pages/puzzle";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/countries" element={<CountriesPage />} />
           <Route path="/favourites" element={<FavouritesPage />} />
           <Route path="/book/:shortName" element={<BookPage />} />
+          <Route path="/book/:shortName/puzzle" element={<PuzzlePage />} />
           <Route path="*" element={<div>404 Not found page</div>} />
         </Routes>
     </BrowserRouter>

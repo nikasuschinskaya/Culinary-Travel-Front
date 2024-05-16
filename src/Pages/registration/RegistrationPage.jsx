@@ -61,7 +61,7 @@ export const RegistrationPage = () => {
         <Alert variant="success" className={styles.successAlert}>
           <img src="/images/success.png" alt="Успешно!" width="50" height="50" />
           <Alert.Heading>Вы успешно зарегистрированы!</Alert.Heading>
-          <p>Для входа в приложение нажмите на кнопку {"Вход"}</p>
+          <p>Для входа в приложение нажмите на кнопку {"Войти"}</p>
         </Alert>
       ) : (
         <section className={styles.root}>
@@ -169,7 +169,7 @@ export const RegistrationPage = () => {
               </Form.Text>
             </Form.Group>
             <Button
-              variant="primary"
+              variant={(!validName || !validPwd || !validMatch) ? "secondary" : "primary"}
               type="submit"
               disabled={!validName || !validPwd || !validMatch}
             >

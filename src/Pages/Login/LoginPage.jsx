@@ -29,9 +29,10 @@ export const LoginPage = () => {
 
 
     setUserData(data);
+    localStorage.setItem('userId', data.id);
     localStorage.setItem('userPoints', data.points);
     localStorage.setItem('userName', data.name);
-    localStorage.setItem('userOpenedCountries', data.openedCountries);
+    localStorage.setItem('userOpenedCountries', JSON.stringify(data.openedCountries));
 
     setPwd("");
     setSuccess(true);
@@ -82,7 +83,11 @@ export const LoginPage = () => {
                 <FormControl type="password" value={pwd} onChange={(e) => setPwd(e.target.value)} />
               </InputGroup>
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-100" disabled={!isFormValid}>
+            <Button 
+              variant={!isFormValid ? "secondary" : "primary"}
+              type="submit" 
+              className="w-100" 
+              disabled={!isFormValid}>
               Войти
             </Button>
           </Form>
