@@ -11,10 +11,10 @@ export const PuzzlePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    createPuzzlePieces();
+    createAndShufflePuzzlePieces();
   }, []);
 
-  const createPuzzlePieces = () => {
+  const createAndShufflePuzzlePieces = () => {
     const recipePhotoURL = localStorage.getItem('recipePhotoURL');
     const tempPieces = [];
     const pieceSize = 100; // Размер каждого кусочка в процентах
@@ -28,11 +28,7 @@ export const PuzzlePage = () => {
       });
     }
 
-    setPieces(tempPieces);
-  };
-
-  const shufflePuzzlePieces = () => {
-    const shuffledPieces = pieces.slice().sort(() => Math.random() - 0.5);
+    const shuffledPieces = tempPieces.slice().sort(() => Math.random() - 0.5);
     setPieces(shuffledPieces);
     setIsShuffled(true);
   };
@@ -86,7 +82,6 @@ export const PuzzlePage = () => {
           />
         ))}
       </div>
-      <button onClick={shufflePuzzlePieces}>Перемешать</button>
       {checkPuzzleCompletion() && (
         <div>
           <Alert variant="success" className={styles.successAlert}>
