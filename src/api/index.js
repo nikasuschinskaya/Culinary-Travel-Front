@@ -136,6 +136,21 @@ class CulinaryApi {
       return { status: 500, message: 'Ошибка при завершении рецепта' };
     }
   }  
+
+  async changeToNextProgress(country, userId, recipeId) {
+    try {
+      const response = await axios.put(
+        `${baseUrl}/${country}/change-progress?userId=${userId}&recipeId=${recipeId}`,
+        null,
+        { withCredentials: true }
+      );
+      console.log(response.data);
+      return { status: 204, message: 'success' };
+    } catch (error) {
+      console.error("Ошибка при изменении прогресса рецепта:", error);
+      return { status: 500, message: 'Ошибка при изменении прогресса рецепта' };
+    }
+  }
 }
 
 export default new CulinaryApi();

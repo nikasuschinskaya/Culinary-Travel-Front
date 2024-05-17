@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Form, InputGroup, FormControl, Alert } from "react-bootstrap";
-
+import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
 
 import styles from "./login.module.css";
@@ -13,6 +13,7 @@ export const LoginPage = () => {
   const [success, setSuccess] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [userData, setUserData] = useState({});
+  const { setUserPoints } = useUserContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +34,8 @@ export const LoginPage = () => {
     localStorage.setItem('userPoints', data.points);
     localStorage.setItem('userName', data.name);
     localStorage.setItem('userOpenedCountries', JSON.stringify(data.openedCountries));
+
+    setUserPoints(data.points);
 
     setPwd("");
     setSuccess(true);

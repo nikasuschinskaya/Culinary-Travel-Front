@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 
 export const UserPage = () => {
     const userName = localStorage.getItem('userName');
-    const userOpenedCountries = localStorage.getItem('userOpenedCountries');
+    const userOpenedCountriesString = localStorage.getItem('userOpenedCountries');
+    const userOpenedCountries = userOpenedCountriesString ? JSON.parse(userOpenedCountriesString) : [];
+    
+    console.log(userOpenedCountries.length);
 
     return (
         <div className={styles["user-container"]}>

@@ -25,14 +25,15 @@ export const BookPage = () => {
   const handleRecipeClick = async (orderalNumber) =>  {
     const userId = localStorage.getItem('userId');
     setFirstRecipeClicked(true);
-    const photoURL = 'https://lh3.googleusercontent.com/pw/AP1GczN1yJD5dfe4h-XCncRd8i-d2eR3K5NQY-M6S7i72CNGcGV1B8AaFadsGtPnX-wnKtLP5PXXOraN_hiHYBrPpc8E5mtV0PDN3GHfonqLsh5B_VUUEuDdiJ_7R2eBmSIMyEoyS5K-qEpfM7NKXsMN4rtn=w1340-h854-s-no-gm?authuser=0';
-    localStorage.setItem('recipePhotoURL', photoURL);
-    // try {
-    //   const { data } = await CulinaryApi.fetchRecipe(orderalNumber, shortName, userId);
-    //   localStorage.setItem('recipePhotoURL', data.photoURL);
-    // } catch (error) {
-    //   console.error("Error fetching recipe data:", error);
-    // }
+    try {
+      const { data } = await CulinaryApi.fetchRecipe(orderalNumber, shortName, userId);
+      localStorage.setItem('recipeOrderalNumber', orderalNumber)
+      localStorage.setItem('recipeId', data.id);
+      localStorage.setItem('recipePhotoURL', data.photoURL);
+      localStorage.setItem('recipeHistory', data.history);
+    } catch (error) {
+      console.error("Error fetching recipe data:", error);
+    }
     navigate(`/book/${shortName}/puzzle`);
   };
 

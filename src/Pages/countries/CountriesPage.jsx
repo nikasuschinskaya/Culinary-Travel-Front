@@ -10,7 +10,7 @@ import styles from "./countries.module.css";
 export const CountriesPage = () => {
   const { userPoints, setUserPoints } = useUserContext();
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  // const [selectedCountry, setSelectedCountry] = useState(null);
   const navigate = useNavigate();
 
   const userOpenedCountriesString = localStorage.getItem('userOpenedCountries');
@@ -33,7 +33,8 @@ export const CountriesPage = () => {
     if (status === 200) {
         const newUserPoints = parseInt(userPoints) - pointsToOpen;
         setUserPoints(newUserPoints);
-        setSelectedCountry(shortName); 
+        // setSelectedCountry(shortName); 
+        localStorage.setItem('userOpenedCountries', JSON.stringify([...userOpenedCountries, { shortName }]));
     } 
     else {
         console.error("Ошибка покупки страны: Статус", status);
@@ -45,7 +46,7 @@ export const CountriesPage = () => {
   };
 
   const renderButton = (country) => {
-    // Проверяем, открыта ли уже эта страна пользователем
+
     const isOpened = userOpenedCountriesNames && userOpenedCountriesNames.includes(country.shortName);
 
     if (isOpened) {
@@ -72,97 +73,50 @@ export const CountriesPage = () => {
     <div className={styles["countries-container"]}>
       <h1>Страны</h1>
       <div className={styles["countries-list"]}>
-        {countries.map((country) => (
-          <div key={country.id} className={styles["country-item"]}>
-            <img
-              src={country.flagURL}
-              alt={`${country.name} flag`}
-              className={`${styles["country-flag"]} ${selectedCountry === country.shortName ? styles["colorful"] : ""}`}
-              style={{ width: "30%", height: "auto" }}
-            />
-            <h3>{country.name}</h3>
-            <p>
-              Стоимость открытия страны: {country.pointsToOpen}{" "}
-              <img src="/images/points.png" height="30" width="30" alt="Points" />
-            </p>
-            {renderButton(country)}
-          </div>
-        ))}
+        {countries.map((country) => {
+          const isOpened = userOpenedCountriesNames && userOpenedCountriesNames.includes(country.shortName);
+          return (
+            <div key={country.id} className={styles["country-item"]}>
+              <img
+                src={country.flagURL}
+                alt={`${country.name} flag`}
+                className={`${styles["country-flag"]} ${isOpened ? styles["colorful"] : ""}`}
+                style={{ width: "30%", height: "auto" }}
+              />
+              <h3>{country.name}</h3>
+              <p>
+                Стоимость открытия страны: {country.pointsToOpen}{" "}
+                <img src="/images/points.png" height="30" width="30" alt="Points" />
+              </p>
+              {renderButton(country)}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
+
+  // return (
+  //   <div className={styles["countries-container"]}>
+  //     <h1>Страны</h1>
+  //     <div className={styles["countries-list"]}>
+  //       {countries.map((country) => (
+  //         <div key={country.id} className={styles["country-item"]}>
+  //           <img
+  //             src={country.flagURL}
+  //             alt={`${country.name} flag`}
+  //             className={`${styles["country-flag"]} ${selectedCountry === country.shortName ? styles["colorful"] : ""}`}
+  //             style={{ width: "30%", height: "auto" }}
+  //           />
+  //           <h3>{country.name}</h3>
+  //           <p>
+  //             Стоимость открытия страны: {country.pointsToOpen}{" "}
+  //             <img src="/images/points.png" height="30" width="30" alt="Points" />
+  //           </p>
+  //           {renderButton(country)}
+  //         </div>
+  //       ))}
+  //     </div>
+  //   </div>
+  // );
 };
-
-
-// export const CountriesPage = () => {
-//   const { userPoints, setUserPoints } = useUserContext();
-//   const [countries, setCountries] = useState([]);
-//   const [selectedCountry, setSelectedCountry] = useState(null);
-//   const navigate = useNavigate();
-  
-
-//   const fetchData = async () => {
-//     const data = await CulinaryApi.fetchCountries();
-//     setCountries(data);
-//   };
-
-//   useEffect(() => {
-//     fetchData();
-//   }, []);
-
-//   const handleBuyCountry = async (shortName, pointsToOpen) => {
-//     const userId = localStorage.getItem('userId');
-//     console.log(userId);
-//     const { status } = await CulinaryApi.buyCountry(shortName, userId.toString());
-//     if (status === 200) {
-//         const newUserPoints = parseInt(userPoints) - pointsToOpen;
-//         setUserPoints(newUserPoints);
-//         setSelectedCountry(shortName); 
-//     } 
-//     else {
-//         console.error("Ошибка покупки страны: Статус", status);
-//     }
-// };
-
-
-//   const handleOpenCountryRecipes = async (shortName) => {
-//     navigate(`/book/${shortName}`);
-//   }
-
-//   return (
-//     <div className={styles["countries-container"]}>
-//       <h1>Страны</h1>
-//       <div className={styles["countries-list"]}>
-//         {countries.map((country) => (
-//           <div key={country.id} className={styles["country-item"]}>
-//             <img
-//               src={country.flagURL}
-//               alt={`${country.name} flag`}
-//               className={`${styles["country-flag"]} ${selectedCountry === country.shortName ? styles["colorful"] : ""}`}
-//               style={{ width: "30%", height: "auto" }}
-//             />
-//             <h3>{country.name}</h3>
-//             <p>
-//               Стоимость открытия страны: {country.pointsToOpen}{" "}
-//               <img src="/images/points.png" height="30" width="30" alt="Points" />
-//             </p>
-//             {selectedCountry === country.shortName ? (
-//               <Button 
-//                 variant="primary"
-//                 onClick={() => handleOpenCountryRecipes(country.shortName)} >
-//                 Просмотреть рецепты
-//               </Button>
-//             ) : (
-//               <Button
-//                 variant={parseInt(userPoints) < country.pointsToOpen ? "secondary" : "primary"}
-//                 onClick={() => handleBuyCountry(country.shortName, country.pointsToOpen)}
-//                 disabled={parseInt(userPoints) < country.pointsToOpen}>
-//                 Открыть страну
-//               </Button>
-//             )}
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
