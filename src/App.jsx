@@ -9,6 +9,8 @@ import { FavouritesPage } from "./pages/favourites";
 import { BookPage } from "./pages/book";
 import { PuzzlePage } from "./pages/puzzle";
 import { TestPage } from "./pages/test";
+import { RecipePage } from "./pages/recipe";
+import { HistoryPage } from "./pages/history";
 
 const App = () => {
   return (
@@ -23,6 +25,8 @@ const App = () => {
           <Route path="/book/:shortName" element={<BookPage />} />
           <Route path="/book/:shortName/puzzle" element={<PuzzlePage />} />
           <Route path="/book/:shortName/test" element={<TestPage />} />
+          <Route path="/book/:shortName/history" element={<HistoryPage />} />
+          <Route path="/book/:shortName/recipe" element={<RecipePage />} />
           <Route path="*" element={<div>404 Not found page</div>} />
         </Routes>
     </BrowserRouter>

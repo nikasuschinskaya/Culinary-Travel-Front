@@ -27,7 +27,7 @@ export const BookPage = () => {
     setFirstRecipeClicked(true);
     try {
       const { data } = await CulinaryApi.fetchRecipe(orderalNumber, shortName, userId);
-      localStorage.setItem('recipeOrderalNumber', orderalNumber)
+      localStorage.setItem('recipeOrderalNumber', orderalNumber);
       localStorage.setItem('recipeId', data.id);
       localStorage.setItem('recipePhotoURL', data.photoURL);
       localStorage.setItem('recipeHistory', data.history);

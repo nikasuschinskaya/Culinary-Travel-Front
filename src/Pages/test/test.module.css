@@ -1,16 +1,61 @@
 .container {
-    margin-top: 50px;
-    width: 100%;
-    max-width: 600px;
-    min-height: 560px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    background-image: url("/images/puzzle-note.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    scale: 1.2;
-  }
+  margin-top: 50px;
+  width: 100%;
+  max-width: 800px;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-image: url("/images/puzzle-note.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  scale: 1.2;
+}
+
+.answerOption {
+  margin: 10px 0;
+}
+
+.answerOption label {
+  cursor: pointer;
+}
+
+.nextButton {
+  margin-top: 20px; 
+}
+
+.answerButton{
+  margin-top: 20px;
+  width: 100%;
+}
+
+.alert {
+  margin-top: 20px;
+}
+
+.correct {
+  border: 2px solid green;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.incorrect {
+  border: 2px solid red;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.correctMessage {
+  color: green;
+  font-weight: bold;
+}
+
+.incorrectMessage {
+  color: red;
+  font-weight: bold;
+}
