@@ -1,64 +1,70 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Button, Container, Form, InputGroup, FormControl, Alert } from "react-bootstrap";
-
 import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
 
 import styles from "./login.module.css";
+import { Link } from "react-router-dom";
 
 export const LoginPage = () => {
-  const [name, setName] = useState("");
+  const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
-  const { setIsAuth, user, setUser } = useUserContext();
+  const [userData, setUserData] = useState({});
+  const { setUserPoints } = useUserContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !pwd) {
+    if (!user || !pwd) {
       setErrMsg("Поля не могут быть пустыми");
       return;
     }
-    const { status, message, data } = await CulinaryApi.login(name, pwd);
+    const { status, message, data } = await CulinaryApi.login(user, pwd);
 
     if (status !== 200) {
       setErrMsg(message);
       return;
     }
 
-    setUser(data);
-    localStorage.setItem("user", JSON.stringify(data));
+
+    setUserData(data);
+    localStorage.setItem('userId', data.id);
+    localStorage.setItem('userPoints', data.points);
+    localStorage.setItem('userName', data.name);
+    localStorage.setItem('userOpenedCountries', JSON.stringify(data.openedCountries));
+
+    setUserPoints(data.points);
 
     setPwd("");
+    setSuccess(true);
   };
 
   const validateForm = () => {
-    setIsFormValid(name.trim() !== "" && pwd.trim() !== "");
-  };
-
-  const handleSignin = () => {
-    setIsAuth(true);
+    setIsFormValid(user.trim() !== "" && pwd.trim() !== "");
   };
 
   useEffect(() => {
     validateForm();
-  }, [name, pwd]);
+  }, [user, pwd]);
 
   return (
     <Container className="d-flex align-items-center justify-content-center">
-      {user ? (
+      {success ? (
         <Alert variant="success" className={styles.successAlert}>
-          <img src="/images/success.png" alt="Успешно!" width="50" height="50" />
+          <img
+            src="/images/success.png"
+            alt="Успешно!"
+            width="50"
+            height="50"
+          />
           <Alert.Heading>Успешный вход!</Alert.Heading>
-          <p>Ваше имя пользователя: {user.name}</p>
-          <p>Ваши баллы: {user.points}</p>
+          <p>Ваше имя пользователя: {userData.name}</p>
+          <p>Ваши баллы: {userData.points}</p>
           <p>Теперь вы можете получить доступ к своему аккаунту.</p>
-          <Link to="/">
-            <Button variant="primary" onClick={handleSignin}>
-              {" "}
-              Далее{" "}
-            </Button>
+          <Link to="/user">
+            <Button variant="primary"> Далее </Button>
           </Link>
         </Alert>
       ) : (
@@ -71,7 +77,7 @@ export const LoginPage = () => {
             <Form.Group className="mb-3" controlId="loginUsername">
               <Form.Label>Имя пользователя:</Form.Label>
               <InputGroup>
-                <FormControl type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                <FormControl type="text" value={user} onChange={(e) => setUser(e.target.value)} />
               </InputGroup>
             </Form.Group>
             <Form.Group className="mb-3" controlId="loginPassword">
@@ -80,12 +86,11 @@ export const LoginPage = () => {
                 <FormControl type="password" value={pwd} onChange={(e) => setPwd(e.target.value)} />
               </InputGroup>
             </Form.Group>
-            <Button
+            <Button 
               variant={!isFormValid ? "secondary" : "primary"}
-              type="submit"
-              className="w-100"
-              disabled={!isFormValid}
-            >
+              type="submit" 
+              className="w-100" 
+              disabled={!isFormValid}>
               Войти
             </Button>
           </Form>

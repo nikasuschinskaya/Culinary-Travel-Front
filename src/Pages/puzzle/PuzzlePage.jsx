@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Alert, Button, Container, Row, Col } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Alert, Button, Container, Row, Col } from 'react-bootstrap';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
 import styles from "./puzzle.module.css";
 
 export const PuzzlePage = () => {
-  const { shortName, id } = useParams();
-  const { user, recipes, setUser } = useUserContext();
+  const { shortName } = useParams();
+  const { userPoints, setUserPoints } = useUserContext();
   const [pieces, setPieces] = useState([]);
   const [isShuffled, setIsShuffled] = useState(false);
   const navigate = useNavigate();
@@ -16,13 +16,11 @@ export const PuzzlePage = () => {
     createAndShufflePuzzlePieces();
   }, []);
 
-  console.log(recipes);
-
   const createAndShufflePuzzlePieces = () => {
-    const recipePhotoURL = recipes[id - 1]?.recipePhotoURL;
+    const recipePhotoURL = localStorage.getItem('recipePhotoURL');
     const tempPieces = [];
-    const pieceSize = 100;
-    const puzzleSize = 300;
+    const pieceSize = 100; 
+    const puzzleSize = 300; 
 
     for (let i = 0; i < 9; i++) {
       const positionX = (i % 3) * pieceSize;
@@ -34,8 +32,8 @@ export const PuzzlePage = () => {
           backgroundSize: `${puzzleSize}px ${puzzleSize}px`,
           backgroundPosition: `-${positionX}px -${positionY}px`,
           width: `${pieceSize}px`,
-          height: `${pieceSize}px`,
-        },
+          height: `${pieceSize}px`
+        }
       });
     }
 
@@ -46,11 +44,9 @@ export const PuzzlePage = () => {
 
   const handlePieceClick = (index) => {
     if (!isShuffled) return;
-    const selectedPieceIndex = pieces.findIndex((piece) => piece.selected);
+    const selectedPieceIndex = pieces.findIndex(piece => piece.selected);
     if (selectedPieceIndex === -1) {
-      const newPieces = pieces.map((piece, i) =>
-        i === index ? { ...piece, selected: true } : piece
-      );
+      const newPieces = pieces.map((piece, i) => i === index ? { ...piece, selected: true } : piece);
       setPieces(newPieces);
     } else {
       const newPieces = pieces.map((piece, i) => {
@@ -58,7 +54,7 @@ export const PuzzlePage = () => {
         if (i === index) return pieces[selectedPieceIndex];
         return piece;
       });
-      setPieces(newPieces.map((piece) => ({ ...piece, selected: false })));
+      setPieces(newPieces.map(piece => ({ ...piece, selected: false })));
     }
   };
 
@@ -72,29 +68,20 @@ export const PuzzlePage = () => {
   };
 
   const handleNextClick = async () => {
-    const moneyForCompletePuzzle = 10;
-    const newUserPoints = user.points + moneyForCompletePuzzle;
-    const updatedUser = {
-      ...user,
-      points: newUserPoints,
-      openedCountries: [...user.openedCountries, { shortName }],
-    };
-    setUser(updatedUser);
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+    const userId = localStorage.getItem('userId');
+    const recipeId = localStorage.getItem('recipeId');
 
-    const response = await CulinaryApi.changeToNextProgress(
-      shortName,
-      user.id,
-      recipes[id - 1].recipeId
-    );
+    const moneyForCompletePuzzle = 10;
+    const newUserPoints = parseInt(userPoints) + moneyForCompletePuzzle;
+    setUserPoints(newUserPoints);
+
+    const response = await CulinaryApi.changeToNextProgress(shortName, userId, recipeId);
     if (response.status === 204) {
-      navigate(`/book/${shortName}/${id}/test`);
+      navigate(`/book/${shortName}/test`);
     } else {
       console.log(response.status);
     }
-
   };
-  console.log(user);
 
   return (
     <Container className={styles.container}>
@@ -114,7 +101,7 @@ export const PuzzlePage = () => {
         <Col md={6}>
           <div className={styles["original-image"]}>
             <img
-              src={recipes[id - 1]?.recipePhotoURL}
+              src={localStorage.getItem('recipePhotoURL')}
               alt="Original"
               className={styles["original-photo"]}
             />
@@ -126,9 +113,7 @@ export const PuzzlePage = () => {
           <Alert variant="success" className={styles.successAlert}>
             <Alert.Heading>Пазл завершен!</Alert.Heading>
           </Alert>
-          <Button variant="primary" className={styles.nextButton} onClick={handleNextClick}>
-            Далее
-          </Button>
+          <Button variant="primary" className={styles.nextButton} onClick={handleNextClick}>Далее</Button>
         </div>
       )}
     </Container>

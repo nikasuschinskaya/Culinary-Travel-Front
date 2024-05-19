@@ -54,7 +54,6 @@ class CulinaryApi {
       return data;
     } catch (error) {
       console.error("Error fetching countries:", error);
-      return false;
     }
   }
 
@@ -64,7 +63,7 @@ class CulinaryApi {
       return data;
     } catch (error) {
       console.error("Error fetching country by code:", error);
-      return false;
+      throw error;
     }
   }
 
@@ -72,8 +71,8 @@ class CulinaryApi {
     try {
       console.log(userId);
       const response = await axios.post(
-        `${baseUrl}/user/buy-country/${shortName}?userId=${userId}`,
-        null,
+        `${baseUrl}/user/buy-country/${shortName}?userId=${userId}`, 
+        null, 
         { withCredentials: true });
 
       console.log(response?.data);
@@ -88,7 +87,7 @@ class CulinaryApi {
   async fetchRecipe(orderalNumber, country, userId) {
     try {
       const response = await axios.get(
-        `${baseUrl}/${country}/${orderalNumber}/${userId}`,
+        `${baseUrl}/${country}/${orderalNumber}/${userId}`, 
         { withCredentials: true });
       console.log(response.data);
       return { status: 200, message: 'success', data: response.data };
@@ -100,16 +99,17 @@ class CulinaryApi {
 
   async fetchRecipeTest(orderalNumber, country, userId) {
     try {
-      const { data } = await axios.get(
-        `${baseUrl}/${country}/${orderalNumber}/test/${userId}`,
+      const response = await axios.get(
+        `${baseUrl}/${country}/${orderalNumber}/test/${userId}`, 
         { withCredentials: true });
-      return data;
+      console.log(response.data);
+      return { status: 200, message: 'success', data: response.data };
     } catch (error) {
       console.error("Ошибка при получении теста рецепта:", error);
       return { status: 500, message: 'Ошибка при получении теста рецепта' };
     }
   }
-
+  
   async fetchRecipeStep(recipeOrderalNumber, recipeStepOrderalNumber, country, userId) {
     try {
       const response = await axios.get(
@@ -122,20 +122,20 @@ class CulinaryApi {
       return { status: 500, message: 'Ошибка при получении шага рецепта' };
     }
   }
-
+  
   async completeRecipe(recipeOrderalNumber, country, userId) {
     try {
       const response = await axios.put(
         `${baseUrl}/${country}/${recipeOrderalNumber}/complete?userId=${userId}`,
-        null,
-        { withCredentials: true });
+         null, 
+         { withCredentials: true });
       console.log(response.data);
       return { status: 204, message: 'success' };
     } catch (error) {
       console.error("Ошибка при завершении рецепта:", error);
       return { status: 500, message: 'Ошибка при завершении рецепта' };
     }
-  }
+  }  
 
   async changeToNextProgress(country, userId, recipeId) {
     try {
