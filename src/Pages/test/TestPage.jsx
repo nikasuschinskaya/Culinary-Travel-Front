@@ -52,17 +52,6 @@ export const TestPage = () => {
         setResults(newResults);
         setShowNextButton(true); 
     };
-    
-    // const handleSubmit = () => {
-    //     const newResults = {};
-    //     testData.questions.forEach(question => {
-    //         const selectedAnswerId = selectedAnswers[question.id];
-    //         const selectedAnswer = question.answerOptions.find(option => option.id === selectedAnswerId);
-    //         newResults[question.id] = selectedAnswer ? selectedAnswer.isCorrect : false;
-    //     });
-    //     setResults(newResults);
-    //     setShowNextButton(true); 
-    // };
 
     const handleNext = async () => {
         const userId = localStorage.getItem('userId');
