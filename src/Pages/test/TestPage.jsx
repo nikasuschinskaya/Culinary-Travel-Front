@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Button, Container } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
 import styles from "./test.module.css";
 
@@ -11,6 +12,7 @@ export const TestPage = () => {
     const [results, setResults] = useState({});
     const [showNextButton, setShowNextButton] = useState(false);
     const navigate = useNavigate();
+    const { userPoints, setUserPoints } = useUserContext();
 
     useEffect(() => {
         const fetchTest = async () => {
@@ -20,9 +22,7 @@ export const TestPage = () => {
             const response = await CulinaryApi.fetchRecipeTest(orderalNumber, shortName, userId);
             if (response.status === 200) {
                 setTestData(response.data);
-                const numberOfSteps = response.data.recipe.steps.length;
-                localStorage.setItem('recipeStepsCount', 6);
-                console.log("Количество шагов:", numberOfSteps);
+                localStorage.setItem('testPointsForCompleting', response.data.pointsForCompleting);
             } else {
                 console.log(response.status);
             }
@@ -44,10 +44,25 @@ export const TestPage = () => {
             const selectedAnswerId = selectedAnswers[question.id];
             const selectedAnswer = question.answerOptions.find(option => option.id === selectedAnswerId);
             newResults[question.id] = selectedAnswer ? selectedAnswer.isCorrect : false;
+            if (selectedAnswer && selectedAnswer.isCorrect) {
+                const newUserPoints = parseInt(userPoints) + parseInt(localStorage.getItem('testPointsForCompleting'));
+                setUserPoints(newUserPoints);
+            }
         });
         setResults(newResults);
         setShowNextButton(true); 
     };
+    
+    // const handleSubmit = () => {
+    //     const newResults = {};
+    //     testData.questions.forEach(question => {
+    //         const selectedAnswerId = selectedAnswers[question.id];
+    //         const selectedAnswer = question.answerOptions.find(option => option.id === selectedAnswerId);
+    //         newResults[question.id] = selectedAnswer ? selectedAnswer.isCorrect : false;
+    //     });
+    //     setResults(newResults);
+    //     setShowNextButton(true); 
+    // };
 
     const handleNext = async () => {
         const userId = localStorage.getItem('userId');

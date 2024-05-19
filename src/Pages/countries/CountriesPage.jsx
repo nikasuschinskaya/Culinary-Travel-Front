@@ -6,11 +6,11 @@ import CulinaryApi from "../../api";
 
 import { Button } from "react-bootstrap";
 import styles from "./countries.module.css";
+import { recipeStatus } from "../../config/recipeStatus.config";
 
 export const CountriesPage = () => {
   const { userPoints, setUserPoints } = useUserContext();
   const [countries, setCountries] = useState([]);
-  // const [selectedCountry, setSelectedCountry] = useState(null);
   const navigate = useNavigate();
 
   const userOpenedCountriesString = localStorage.getItem('userOpenedCountries');
@@ -33,7 +33,6 @@ export const CountriesPage = () => {
     if (status === 200) {
         const newUserPoints = parseInt(userPoints) - pointsToOpen;
         setUserPoints(newUserPoints);
-        // setSelectedCountry(shortName); 
         localStorage.setItem('userOpenedCountries', JSON.stringify([...userOpenedCountries, { shortName }]));
     } 
     else {
@@ -42,6 +41,7 @@ export const CountriesPage = () => {
   };
 
   const handleOpenCountryRecipes = async (shortName) => {
+    localStorage.setItem(`recipeStatus1`, recipeStatus.Started); //кринж-кринж-кринж-удалить надо будет и нормальную систему придумать
     navigate(`/book/${shortName}`);
   };
 
