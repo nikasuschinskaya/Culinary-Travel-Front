@@ -7,7 +7,7 @@ import styles from "./puzzle.module.css";
 
 export const PuzzlePage = () => {
   const { shortName } = useParams();
-  const { userPoints, setUserPoints } = useUserContext();
+  const { userPoints, setUserPoints, user, recipes } = useUserContext();
   const [pieces, setPieces] = useState([]);
   const [isShuffled, setIsShuffled] = useState(false);
   const navigate = useNavigate();
@@ -17,10 +17,11 @@ export const PuzzlePage = () => {
   }, []);
 
   const createAndShufflePuzzlePieces = () => {
-    const recipePhotoURL = localStorage.getItem('recipePhotoURL');
+    console.log(user);
+    const recipePhotoURL = recipes.recipePhotoURL;
     const tempPieces = [];
-    const pieceSize = 100; 
-    const puzzleSize = 300; 
+    const pieceSize = 100;
+    const puzzleSize = 300;
 
     for (let i = 0; i < 9; i++) {
       const positionX = (i % 3) * pieceSize;

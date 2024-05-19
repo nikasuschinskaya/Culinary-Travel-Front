@@ -1,30 +1,51 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import CulinaryApi from "../../api";
-import styles from "./book.module.css";
-import { Button } from "react-bootstrap";
 import { recipeStatus } from "../../config/recipeStatus.config";
 
+import { Button } from "react-bootstrap";
+import styles from "./book.module.css";
+import { useUserContext } from "../../context/UserContext";
+
 export const BookPage = () => {
+  const [countryData, setCountryData] = useState([]);
   const { shortName } = useParams();
   const navigate = useNavigate();
-  const [countryData, setCountryData] = useState(null);
+
+  const fetchCountryData = async () => {
+    try {
+      const data = await CulinaryApi.fetchCountryByCode(shortName);
+      data ? setCountryData(data) : [];
+    } catch (error) {
+      console.error("Error fetching country data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchCountryData = async () => {
-      try {
-        const data = await CulinaryApi.fetchCountryByCode(shortName);
-        setCountryData(data);
-      } catch (error) {
-        console.error("Error fetching country data:", error);
-      }
-    };
     fetchCountryData();
   }, [shortName]);
 
-  const handleRecipeClick = async (orderalNumber) =>  {
-    const userId = localStorage.getItem('userId');
-    const isCurrentRecipeCompleted = localStorage.getItem(`recipeStatus${orderalNumber}`) === recipeStatus.FullyCompleted.toString();
+  return (
+    <div className={styles["book-container"]}>
+      <h2>Страна: {countryData ? countryData.name : "Loading..."}</h2>
+      <div className={styles["recipe-buttons-container"]}>
+        <RecipeButtons countryData={countryData} />
+      </div>
+    </div>
+  );
+};
+
+const RecipeButtons = ({ countryData }) => {
+  const { user, setRecipe } = useUserContext();
+  if (!countryData || !countryData.recipes) {
+    return null;
+  }
+
+  const handleRecipeClick = async (orderalNumber) => {
+    const isCurrentRecipeCompleted =
+      localStorage.getItem(`recipeStatus${orderalNumber}`) ===
+      recipeStatus.FullyCompleted.toString();
 
     if (isCurrentRecipeCompleted) {
       navigate(`/book/${shortName}/recipe`);
@@ -32,16 +53,20 @@ export const BookPage = () => {
     }
 
     try {
-      const { data } = await CulinaryApi.fetchRecipe(orderalNumber, shortName, userId);
+      const { data } = await CulinaryApi.fetchRecipe(orderalNumber, shortName, user.id);
 
-      localStorage.setItem('recipePointsForCompleting', data.pointsForCompleting);
-      localStorage.setItem('recipeCookingTimeMinutes', data.cookingTimeMinutes);
-      localStorage.setItem('recipeNumberOfServings', data.numberOfServings);
-      localStorage.setItem('recipeStepsCount', data.stepsCount);
-      localStorage.setItem('recipeOrderalNumber', orderalNumber);
-      localStorage.setItem('recipeId', data.id);
-      localStorage.setItem('recipePhotoURL', data.photoURL);
-      localStorage.setItem('recipeHistory', data.history);
+      const recipes = {
+        recipePointsForCompleting: data.pointsForCompleting,
+        recipeCookingTimeMinutes: data.cookingTimeMinutes,
+        recipeNumberOfServings: data.numberOfServings,
+        recipeStepsCount: data.stepsCount,
+        recipeOrderalNum: data.orderalNumber,
+        recipeId: data.id,
+        recipePhotoURL: data.photoURL,
+        recipeHistory: data.history,
+      };
+
+      setRecipe(recipes);
 
     } catch (error) {
       console.error("Error fetching recipe data:", error);
@@ -49,41 +74,48 @@ export const BookPage = () => {
     navigate(`/book/${shortName}/puzzle`);
   };
 
-  
-  const renderRecipeButtons = () => {
-    if (!countryData || !countryData.recipes) {
-      return null;
-    }
+  const sortedRecipes = countryData.recipes.sort((a, b) => a.orderal - b.orderal);
 
-    const sortedRecipes = countryData.recipes.sort((a, b) => a.orderal - b.orderal);
-
-    return sortedRecipes.map((recipe, index) => {
-      const previousRecipeOrderal = index > 0 ? sortedRecipes[index - 1].orderal : null;
-      const isPreviousRecipeCompleted = previousRecipeOrderal
-        ? localStorage.getItem(`recipeStatus${previousRecipeOrderal}`) === recipeStatus.FullyCompleted.toString()
-        : true;
-      const isCurrentRecipeCompleted = localStorage.getItem(`recipeStatus${recipe.orderal}`) === recipeStatus.FullyCompleted.toString();
-
-      return (
-        <Button
-          key={index}
-          variant={isPreviousRecipeCompleted ? "primary" : "secondary"}
-          className={styles.button}
-          disabled={!isPreviousRecipeCompleted}
-          onClick={() => handleRecipeClick(recipe.orderal)}
-        >
-          {isCurrentRecipeCompleted ? recipe.name : `Блюдо №${index + 1}`}
-        </Button>
-      );
-    });
-  };
+  console.log(sortedRecipes);
 
   return (
-    <div className={styles["book-container"]}>
-      <h2>Страна: {countryData ? countryData.name : "Loading..."}</h2>
-      <div className={styles["recipe-buttons-container"]}>
-        {renderRecipeButtons()}
-      </div>
-    </div>
+    <>
+      {sortedRecipes.map((recipe, index) => (
+        <Button
+          key={index}
+          variant={true ? "primary" : "secondary"}
+          className={styles.button}
+          disabled={false}
+          onClick={() => handleRecipeClick(recipe.orderal)}
+        >
+          {`Блюдо №${index + 1}`}
+        </Button>
+      ))}
+    </>
   );
+
+  // return sortedRecipes.map((recipe, index) => {
+  //   const previousRecipeOrderal = index > 0 ? sortedRecipes[index - 1].orderal : null;
+
+  //   const isPreviousRecipeCompleted = previousRecipeOrderal
+  //     ? localStorage.getItem(`recipeStatus${previousRecipeOrderal}`) ===
+  //       recipeStatus.FullyCompleted.toString()
+  //     : true;
+
+  //   const isCurrentRecipeCompleted =
+  //     localStorage.getItem(`recipeStatus${recipe.orderal}`) ===
+  //     recipeStatus.FullyCompleted.toString();
+
+  //   return (
+  //     <Button
+  //       key={index}
+  //       variant={isPreviousRecipeCompleted ? "primary" : "secondary"}
+  //       className={styles.button}
+  //       disabled={!isPreviousRecipeCompleted}
+  //       onClick={() => handleRecipeClick(recipe.orderal)}
+  //     >
+  //       {isCurrentRecipeCompleted ? recipe.name : `Блюдо №${index + 1}`}
+  //     </Button>
+  //   );
+  // });
 };

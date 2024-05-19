@@ -1,27 +1,36 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const INITIAL_STATE = {
-  userPoints: {},
-  setUserPoints: () => {},
+  isAuth: false,
+  setIsAuth: true,
+  user: {},
+  setUser: () => {},
+  recipes: {},
+  setRecipes: () => {},
 };
 
 const UserContext = createContext(INITIAL_STATE);
 
 export function UserProvider({ children }) {
-  const [userPoints, setUserPoints] = useState("");
+  const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState("");
+  const [recipes, setRecipes] = useState({});
 
   useEffect(() => {
-    setUserPoints(localStorage.getItem("userPoints"));
+    const data = localStorage.getItem("user");
+    if (data) {
+      setUser(JSON.parse(data));
+      setIsAuth(true);
+    }
   }, []);
 
-  const updateUserPoints = (newValue) => {
-    setUserPoints(newValue);
-    localStorage.setItem("userPoints", newValue);
-  };
-
   const value = {
-    userPoints,
-    setUserPoints: updateUserPoints,
+    isAuth,
+    setIsAuth,
+    user,
+    setUser,
+    setRecipes,
+    recipes,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
