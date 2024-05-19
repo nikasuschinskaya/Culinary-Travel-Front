@@ -100,11 +100,10 @@ class CulinaryApi {
 
   async fetchRecipeTest(orderalNumber, country, userId) {
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         `${baseUrl}/${country}/${orderalNumber}/test/${userId}`,
         { withCredentials: true });
-      console.log(response.data);
-      return { status: 200, message: 'success', data: response.data };
+      return data;
     } catch (error) {
       console.error("Ошибка при получении теста рецепта:", error);
       return { status: 500, message: 'Ошибка при получении теста рецепта' };
@@ -128,8 +127,8 @@ class CulinaryApi {
     try {
       const response = await axios.put(
         `${baseUrl}/${country}/${recipeOrderalNumber}/complete?userId=${userId}`,
-         null,
-         { withCredentials: true });
+        null,
+        { withCredentials: true });
       console.log(response.data);
       return { status: 204, message: 'success' };
     } catch (error) {

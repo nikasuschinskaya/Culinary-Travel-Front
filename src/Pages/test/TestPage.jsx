@@ -6,7 +6,7 @@ import CulinaryApi from "../../api";
 import styles from "./test.module.css";
 
 export const TestPage = () => {
-  const { shortName } = useParams();
+  const { shortName, id } = useParams();
   const [testData, setTestData] = useState(null);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [results, setResults] = useState({});
@@ -14,20 +14,13 @@ export const TestPage = () => {
   const navigate = useNavigate();
   const { userPoints, setUserPoints, recipes, user } = useUserContext();
 
+  const fetchTest = async () => {
+    const data = await CulinaryApi.fetchRecipeTest(id, shortName, user.id);
+    setTestData(data);
+    localStorage.setItem("testPointsForCompleting", response.data.pointsForCompleting);
+  };
+
   useEffect(() => {
-    const fetchTest = async () => {
-      const orderalNumber = localStorage.getItem("recipeOrderalNumber");
-      const userId = localStorage.getItem("userId");
-
-      const response = await CulinaryApi.fetchRecipeTest(orderalNumber, shortName, userId);
-      if (response.status === 200) {
-        setTestData(response.data);
-        localStorage.setItem("testPointsForCompleting", response.data.pointsForCompleting);
-      } else {
-        console.log(response.status);
-      }
-    };
-
     fetchTest();
   }, [shortName]);
 

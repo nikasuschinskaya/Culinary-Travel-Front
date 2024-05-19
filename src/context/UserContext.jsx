@@ -14,7 +14,7 @@ const UserContext = createContext(INITIAL_STATE);
 export function UserProvider({ children }) {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState("");
-  const [recipes, setRecipes] = useState({});
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     const data = localStorage.getItem("user");
@@ -24,12 +24,16 @@ export function UserProvider({ children }) {
     }
   }, []);
 
+  const updateRecipes = (data) => {
+    setRecipes([...recipes, data]);
+  }
+
   const value = {
     isAuth,
     setIsAuth,
     user,
     setUser,
-    setRecipes,
+    setRecipes: updateRecipes,
     recipes,
   };
 

@@ -31,10 +31,10 @@ const App = () => {
             <Route path="/countries" element={<CountriesPage />} />
             <Route path="/favourites" element={<FavouritesPage />} />
             <Route path="/book/:shortName" element={<BookPage />} />
-            <Route path="/book/:shortName/puzzle" element={<PuzzlePage />} />
-            <Route path="/book/:shortName/test" element={<TestPage />} />
-            <Route path="/book/:shortName/history" element={<HistoryPage />} />
-            <Route path="/book/:shortName/recipe" element={<RecipePage />} />
+            <Route path="/book/:shortName/:id/puzzle" element={<PuzzlePage />} />
+            <Route path="/book/:shortName/:id/test" element={<TestPage />} />
+            <Route path="/book/:shortName/:id/history" element={<HistoryPage />} />
+            <Route path="/book/:shortName/:id/recipe" element={<RecipePage />} />
           </>
         )}
         <Route path="*" element={<div>404 Not found page</div>} />

@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
 
-import CulinaryApi from "../../api";
 import { recipeStatus } from "../../config/recipeStatus.config";
+import CulinaryApi from "../../api";
 
 import { Button } from "react-bootstrap";
 import styles from "./book.module.css";
-import { useUserContext } from "../../context/UserContext";
 
 export const BookPage = () => {
   const [countryData, setCountryData] = useState([]);
   const { shortName } = useParams();
-  const navigate = useNavigate();
+  const { recipes } = useUserContext();
 
   const fetchCountryData = async () => {
     try {
@@ -37,25 +37,17 @@ export const BookPage = () => {
 };
 
 const RecipeButtons = ({ countryData }) => {
-  const { user, setRecipe } = useUserContext();
+  const navigate = useNavigate();
+  const { user, setRecipes } = useUserContext();
+  const { shortName } = useParams();
   if (!countryData || !countryData.recipes) {
     return null;
   }
 
   const handleRecipeClick = async (orderalNumber) => {
-    const isCurrentRecipeCompleted =
-      localStorage.getItem(`recipeStatus${orderalNumber}`) ===
-      recipeStatus.FullyCompleted.toString();
-
-    if (isCurrentRecipeCompleted) {
-      navigate(`/book/${shortName}/recipe`);
-      return;
-    }
-
-    try {
-      const { data } = await CulinaryApi.fetchRecipe(orderalNumber, shortName, user.id);
-
-      const recipes = {
+    const { data } = await CulinaryApi.fetchRecipe(orderalNumber, shortName, user.id);
+    if (data) {
+      const recipe = {
         recipePointsForCompleting: data.pointsForCompleting,
         recipeCookingTimeMinutes: data.cookingTimeMinutes,
         recipeNumberOfServings: data.numberOfServings,
@@ -66,12 +58,10 @@ const RecipeButtons = ({ countryData }) => {
         recipeHistory: data.history,
       };
 
-      setRecipe(recipes);
+      setRecipes(recipe);
 
-    } catch (error) {
-      console.error("Error fetching recipe data:", error);
+      navigate(`/book/${shortName}/${orderalNumber}/puzzle`);
     }
-    navigate(`/book/${shortName}/puzzle`);
   };
 
   const sortedRecipes = countryData.recipes.sort((a, b) => a.orderal - b.orderal);
@@ -83,9 +73,15 @@ const RecipeButtons = ({ countryData }) => {
       {sortedRecipes.map((recipe, index) => (
         <Button
           key={index}
-          variant={true ? "primary" : "secondary"}
+          variant={
+            index === 0
+              ? "primary"
+              : recipe[index - 1]?.status === recipeStatus.FullyCompleted
+              ? "primary"
+              : "secondary"
+          }
           className={styles.button}
-          disabled={false}
+          disabled={index === 0 ? false : recipe[index - 1]?.status !== recipeStatus.FullyCompleted}
           onClick={() => handleRecipeClick(recipe.orderal)}
         >
           {`Блюдо №${index + 1}`}
@@ -93,29 +89,4 @@ const RecipeButtons = ({ countryData }) => {
       ))}
     </>
   );
-
-  // return sortedRecipes.map((recipe, index) => {
-  //   const previousRecipeOrderal = index > 0 ? sortedRecipes[index - 1].orderal : null;
-
-  //   const isPreviousRecipeCompleted = previousRecipeOrderal
-  //     ? localStorage.getItem(`recipeStatus${previousRecipeOrderal}`) ===
-  //       recipeStatus.FullyCompleted.toString()
-  //     : true;
-
-  //   const isCurrentRecipeCompleted =
-  //     localStorage.getItem(`recipeStatus${recipe.orderal}`) ===
-  //     recipeStatus.FullyCompleted.toString();
-
-  //   return (
-  //     <Button
-  //       key={index}
-  //       variant={isPreviousRecipeCompleted ? "primary" : "secondary"}
-  //       className={styles.button}
-  //       disabled={!isPreviousRecipeCompleted}
-  //       onClick={() => handleRecipeClick(recipe.orderal)}
-  //     >
-  //       {isCurrentRecipeCompleted ? recipe.name : `Блюдо №${index + 1}`}
-  //     </Button>
-  //   );
-  // });
 };
