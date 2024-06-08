@@ -31,26 +31,26 @@ export const TestPage = () => {
         fetchTest();
     }, [shortName]);
 
-    const handleAnswerSelect = (questionId, answerId) => {
+    const handleAnswerSelect = (questionIndex, answerIndex) => {
         setSelectedAnswers({
             ...selectedAnswers,
-            [questionId]: answerId,
+            [questionIndex]: answerIndex,
         });
     };
 
     const handleSubmit = () => {
         const newResults = {};
-        testData.questions.forEach(question => {
-            const selectedAnswerId = selectedAnswers[question.id];
-            const selectedAnswer = question.answerOptions.find(option => option.id === selectedAnswerId);
-            newResults[question.id] = selectedAnswer ? selectedAnswer.isCorrect : false;
+        testData.questions.forEach((question, index) => {
+            const selectedAnswerIndex = selectedAnswers[index];
+            const selectedAnswer = question.answerOptions[selectedAnswerIndex];
+            newResults[index] = selectedAnswer ? selectedAnswer.isCorrect : false;
             if (selectedAnswer && selectedAnswer.isCorrect) {
                 const newUserPoints = parseInt(userPoints) + parseInt(localStorage.getItem('testPointsForCompleting'));
                 setUserPoints(newUserPoints);
             }
         });
         setResults(newResults);
-        setShowNextButton(true); 
+        setShowNextButton(true);
     };
 
     const handleNext = async () => {
@@ -71,28 +71,28 @@ export const TestPage = () => {
                 {testData ? (
                     <div>
                         <ul>
-                            {testData.questions.map((question, index) => (
-                                <li key={index} className={results[question.id] !== undefined ? (results[question.id] ? styles.correct : styles.incorrect) : ''}>
+                            {testData.questions.map((question, questionIndex) => (
+                                <li key={questionIndex} className={results[questionIndex] !== undefined ? (results[questionIndex] ? styles.correct : styles.incorrect) : ''}>
                                     <p>{question.title}</p>
                                     <ul>
-                                        {question.answerOptions.map((option, idx) => (
-                                            <li key={idx} className={styles.answerOption}>
+                                        {question.answerOptions.map((option, answerIndex) => (
+                                            <li key={answerIndex} className={styles.answerOption}>
                                                 <label>
                                                     <input
                                                         type="radio"
-                                                        name={`question-${question.id}`}
-                                                        value={option.id}
-                                                        onChange={() => handleAnswerSelect(question.id, option.id)}
-                                                        disabled={results[question.id] !== undefined}
+                                                        name={`question-${questionIndex}`}
+                                                        value={answerIndex}
+                                                        onChange={() => handleAnswerSelect(questionIndex, answerIndex)}
+                                                        disabled={results[questionIndex] !== undefined}
                                                     />
                                                     {' '}{option.text}
                                                 </label>
                                             </li>
                                         ))}
                                     </ul>
-                                    {results[question.id] !== undefined && (
-                                        <div className={results[question.id] ? styles.correctMessage : styles.incorrectMessage}>
-                                            {results[question.id] ? 'Правильно!' : 'Не угадали :('}
+                                    {results[questionIndex] !== undefined && (
+                                        <div className={results[questionIndex] ? styles.correctMessage : styles.incorrectMessage}>
+                                            {results[questionIndex] ? 'Правильно!' : 'Не угадали :('}
                                         </div>
                                     )}
                                 </li>

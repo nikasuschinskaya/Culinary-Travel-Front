@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Button, Col, Container, Nav, Row, Tab } from 'react-bootstrap';
-import { useParams, useNavigate  } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
 import styles from "./recipe.module.css";
@@ -20,20 +20,17 @@ export const RecipePage = () => {
   const recipeOrderalNumber = localStorage.getItem('recipeOrderalNumber');
 
   useEffect(() => {
-    const fetchRecipeStepData = async () => {
+    const fetchRecipeStepData = () => {
       const recipeStepsCount = parseInt(localStorage.getItem('recipeStepsCount'));
-
       const newRecipeSteps = [];
+
       for (let i = 0; i < recipeStepsCount; i++) {
-        const response = await CulinaryApi.fetchRecipeStep(recipeOrderalNumber, i + 1, shortName, userId);
-        if (response.status === 200) {
-          newRecipeSteps.push(response.data);
-        } else {
-          setError(response.message);
-          setLoading(false);
-          return;
-        }
+        const step = JSON.parse(localStorage.getItem(`recipeStep${i + 1}`));
+
+        newRecipeSteps.push(step);
       }
+
+      newRecipeSteps.sort((a, b) => a.orderal - b.orderal);
 
       setRecipeStepData(newRecipeSteps);
       setLoading(false);
@@ -56,9 +53,7 @@ export const RecipePage = () => {
     const newUserPoints = parseInt(userPoints) + moneyForCompleteRecipe;
     setUserPoints(newUserPoints);
 
-    const recipeId = localStorage.getItem('recipeId');
-
-    const response = await CulinaryApi.changeToNextProgress(shortName, userId, recipeId);
+    const response = await CulinaryApi.completeRecipe(recipeOrderalNumber, shortName, userId);
     if (response.status === 204) {
       localStorage.setItem(`recipeStatus${recipeOrderalNumber}`, recipeStatus.FullyCompleted);
       navigate(`/book/${shortName}`);
@@ -69,16 +64,13 @@ export const RecipePage = () => {
 
   const getIngredients = () => {
     const ingredients = [];
-    recipeStepData.forEach(step => {
-      step.ingredientRecipeSteps.forEach(ingredientStep => {
-        ingredients.push({
-          name: ingredientStep.ingredient.name,
-          photoURL: ingredientStep.ingredient.photoURL,
-          unit: ingredientStep.ingredientUnit.name,
-          value: ingredientStep.value
-        });
-      });
-    });
+    const recipeIngredientsCount = parseInt(localStorage.getItem('recipeIngredientsCount'));
+
+    for (let i = 0; i < recipeIngredientsCount; i++) {
+      const ingredient = JSON.parse(localStorage.getItem(`recipeIngredient${i + 1}`));
+      ingredients.push(ingredient);
+    }
+
     return ingredients;
   };
 
@@ -118,13 +110,14 @@ export const RecipePage = () => {
                       <h2>{step.title}</h2>
                       <img src={step.gifURL} alt="Иллюстрация" className={styles.stepImage} />
                       <div className={styles.ingredients}>
-                        {step.ingredientRecipeSteps.map((ingredientStep, idx) => (
-                          <div key={idx} className={styles.ingredient}>
-                            <img src={ingredientStep.ingredient.photoURL} alt={ingredientStep.ingredient.name} className={styles.ingredientImage} />
-                            <p>{ingredientStep.ingredient.name}</p>
-                            <p>{ingredientStep.value} {ingredientStep.ingredientUnit.name}</p>
-                          </div>
-                        ))}
+                        {step.ingredients.map((ingredient, idx) => {
+                          return ingredient ? (
+                            <div key={idx} className={styles.ingredient}>
+                              <img src={ingredient.photoURL} alt={ingredient.value} className={styles.ingredientImage} />
+                              <p>{ingredient.value} </p>
+                            </div>
+                          ) : null;
+                        })}
                       </div>
                     </Tab.Pane>
                   ))}
@@ -149,14 +142,14 @@ export const RecipePage = () => {
       </div>
       {showIngredients && (
         <div className={styles.ingredientList}>
-          <p>Время приготовления: { parseInt(localStorage.getItem('recipeCookingTimeMinutes')) } мин</p>
-          <p>Количество порций: { parseInt(localStorage.getItem('recipeNumberOfServings')) }</p>
+          <p>Время приготовления: {parseInt(localStorage.getItem('recipeCookingTimeMinutes'))} мин</p>
+          <p>Количество порций: {parseInt(localStorage.getItem('recipeNumberOfServings'))}</p>
           <h4>Ингредиенты:</h4>
           {ingredients.map((ingredient, index) => (
             <div key={index} className="d-flex align-items-center mb-2">
-              <img src={ingredient.photoURL} alt={ingredient.name} className={`${styles.ingredientImage} me-2`} />
+              <img src={ingredient.photoURL} alt={ingredient.value} className={`${styles.ingredientImage} me-2`} />
               <div>
-                <p>{ingredient.name} - {ingredient.value} {ingredient.unit}</p>
+                <p>{ingredient.value}</p>
               </div>
             </div>
           ))}

@@ -33,15 +33,24 @@ export const BookPage = () => {
 
     try {
       const { data } = await CulinaryApi.fetchRecipe(orderalNumber, shortName, userId);
-
+      
       localStorage.setItem('recipePointsForCompleting', data.pointsForCompleting);
       localStorage.setItem('recipeCookingTimeMinutes', data.cookingTimeMinutes);
       localStorage.setItem('recipeNumberOfServings', data.numberOfServings);
-      localStorage.setItem('recipeStepsCount', data.stepsCount);
+      localStorage.setItem('recipeStepsCount', data.steps.length);
       localStorage.setItem('recipeOrderalNumber', orderalNumber);
       localStorage.setItem('recipeId', data.id);
       localStorage.setItem('recipePhotoURL', data.photoURL);
       localStorage.setItem('recipeHistory', data.history);
+      localStorage.setItem('recipeIngredientsCount', data.ingredients.length)
+
+      data.steps.forEach((step, index) => {
+        localStorage.setItem(`recipeStep${index + 1}`, JSON.stringify(step));
+      });
+
+      data.ingredients.forEach((ingredient, index) => {
+        localStorage.setItem(`recipeIngredient${index + 1}`, JSON.stringify(ingredient));
+      });
 
     } catch (error) {
       console.error("Error fetching recipe data:", error);
