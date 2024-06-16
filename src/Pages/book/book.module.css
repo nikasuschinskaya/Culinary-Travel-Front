@@ -3,11 +3,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("/images/note.png");
+    /* background-image: url("/images/note.png"); */
     background-size: 40%;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100vh;
+    min-height: max-content;
+
+    background-color: #ffffff; 
+    /* min-height: max-content;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    background-image: none;  */
   }
 
   .recipe-buttons-container {

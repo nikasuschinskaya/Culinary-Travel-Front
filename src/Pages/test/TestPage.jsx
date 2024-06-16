@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
 import styles from "./test.module.css";
+import { recipeStatus } from '../../config/recipeStatus.config';
 
 export const TestPage = () => {
     const { shortName } = useParams();
@@ -59,6 +60,12 @@ export const TestPage = () => {
 
         const response = await CulinaryApi.changeToNextProgress(shortName, userId, recipeId);
         if (response.status === 204) {
+
+            let userRecipesProgress = JSON.parse(localStorage.getItem('userRecipesProgress')) || [];
+            const progressIndex = userRecipesProgress.findIndex(progress => progress.recipeId === recipeId);
+            userRecipesProgress[progressIndex].status = recipeStatus.CompletedTest;
+            localStorage.setItem('userRecipesProgress', JSON.stringify(userRecipesProgress));
+
             navigate(`/book/${shortName}/history`);
         } else {
             console.log(response.status);

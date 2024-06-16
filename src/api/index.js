@@ -151,6 +151,22 @@ class CulinaryApi {
       return { status: 500, message: 'Ошибка при изменении прогресса рецепта' };
     }
   }
+
+  async addRecipeToFavorite(orderalNumber, country, userId) {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/${country}/${orderalNumber}/like`,
+        userId,
+        { withCredentials: true }
+      );
+      console.log(response.data);
+      return { status: 204, message: 'success' };
+    } catch (error) {
+      console.error("Ошибка при добавлении рецепта в избранное:", error);
+      return { status: 500, message: 'Ошибка при добавлении рецепта в избранное' };
+    }
+  }
+
 }
 
 export default new CulinaryApi();

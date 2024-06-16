@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
 import styles from "./puzzle.module.css";
+import { recipeStatus } from '../../config/recipeStatus.config';
 
 export const PuzzlePage = () => {
   const { shortName } = useParams();
@@ -77,6 +78,11 @@ export const PuzzlePage = () => {
 
     const response = await CulinaryApi.changeToNextProgress(shortName, userId, recipeId);
     if (response.status === 204) {
+
+      const userRecipesProgress = JSON.parse(localStorage.getItem('userRecipesProgress')) || [];
+      const updatedProgress = [...userRecipesProgress, { recipeId: recipeId, status: recipeStatus.CompletedPuzzle }];
+      localStorage.setItem('userRecipesProgress', JSON.stringify(updatedProgress));
+
       navigate(`/book/${shortName}/test`);
     } else {
       console.log(response.status);

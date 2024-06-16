@@ -34,6 +34,8 @@ export const LoginPage = () => {
     localStorage.setItem('userPoints', data.points);
     localStorage.setItem('userName', data.name);
     localStorage.setItem('userOpenedCountries', JSON.stringify(data.openedCountries));
+    localStorage.setItem('userFavoriteRecipes', JSON.stringify(data.favoriteRecipes));
+    localStorage.setItem('userRecipesProgress', JSON.stringify(data.recipesProgress));
 
     setUserPoints(data.points);
 

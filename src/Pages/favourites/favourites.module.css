@@ -1,0 +1,26 @@
+.pageContainer {
+    background-color: #726868; 
+    min-height: max-content;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    background-image: none; 
+  }
+  
+  .centeredContainer {
+    background-color: #ffffff; 
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recipeButtonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .recipeButton {
+    margin: 5px;
+  }
+  

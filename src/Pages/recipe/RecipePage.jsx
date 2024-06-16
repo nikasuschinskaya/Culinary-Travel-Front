@@ -17,6 +17,7 @@ export const RecipePage = () => {
   const [error, setError] = useState(null);
   const [showIngredients, setShowIngredients] = useState(true);
   const userId = localStorage.getItem('userId');
+  const recipeId = localStorage.getItem('recipeId');
   const recipeOrderalNumber = localStorage.getItem('recipeOrderalNumber');
 
   useEffect(() => {
@@ -55,7 +56,12 @@ export const RecipePage = () => {
 
     const response = await CulinaryApi.completeRecipe(recipeOrderalNumber, shortName, userId);
     if (response.status === 204) {
-      localStorage.setItem(`recipeStatus${recipeOrderalNumber}`, recipeStatus.FullyCompleted);
+      
+      let userRecipesProgress = JSON.parse(localStorage.getItem('userRecipesProgress')) || [];
+      const progressIndex = userRecipesProgress.findIndex(progress => progress.recipeId === recipeId);
+      userRecipesProgress[progressIndex].status = recipeStatus.FullyCompleted;
+      localStorage.setItem('userRecipesProgress', JSON.stringify(userRecipesProgress));
+
       navigate(`/book/${shortName}`);
     } else {
       console.log(response.status);

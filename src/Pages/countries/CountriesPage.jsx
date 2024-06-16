@@ -41,7 +41,7 @@ export const CountriesPage = () => {
   };
 
   const handleOpenCountryRecipes = async (shortName) => {
-    localStorage.setItem(`recipeStatus1`, recipeStatus.Started); //кринж-кринж-кринж-удалить надо будет и нормальную систему придумать
+    // localStorage.setItem(`recipeStatus1`, recipeStatus.Started);
     navigate(`/book/${shortName}`);
   };
 
@@ -76,7 +76,7 @@ export const CountriesPage = () => {
         {countries.map((country) => {
           const isOpened = userOpenedCountriesNames && userOpenedCountriesNames.includes(country.shortName);
           return (
-            <div key={country.id} className={styles["country-item"]}>
+            <div key={country.shortName} className={styles["country-item"]}>
               <img
                 src={country.flagURL}
                 alt={`${country.name} flag`}
