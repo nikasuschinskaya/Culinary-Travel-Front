@@ -38,7 +38,7 @@ export const Header = () => {
         expand="md"
         bg="dark"
         variant="dark"
-        className="w-100 d-flex align-items-center justify-content-between"
+        className="w-100 d-flex align-items-center justify-content-between fixed-top"
       >
         <Container>
           <Navbar.Brand className="d-flex align-items-center gap-3">

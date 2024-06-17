@@ -16,6 +16,7 @@ export const RecipePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showIngredients, setShowIngredients] = useState(true);
+  const [recipeStatusState, setRecipeStatusState] = useState(null);
   const userId = localStorage.getItem('userId');
   const recipeId = localStorage.getItem('recipeId');
   const recipeOrderalNumber = localStorage.getItem('recipeOrderalNumber');
@@ -39,6 +40,18 @@ export const RecipePage = () => {
 
     fetchRecipeStepData();
   }, [shortName]);
+
+  useEffect(() => {
+    const fetchRecipeStatus = () => {
+      const userRecipesProgress = JSON.parse(localStorage.getItem('userRecipesProgress')) || [];
+      const recipeProgress = userRecipesProgress.find(progress => progress.recipeId === recipeId);
+      if (recipeProgress) {
+        setRecipeStatusState(recipeProgress.status);
+      }
+    };
+
+    fetchRecipeStatus();
+  }, [recipeId]);
 
   const handleNextStep = () => {
     setCurrentStep((prevStep) => prevStep + 1);
@@ -66,6 +79,10 @@ export const RecipePage = () => {
     } else {
       console.log(response.status);
     } 
+  };
+
+  const handleViewCompleteRecipe = () => {
+    navigate(`/book/${shortName}`);
   };
 
   const getIngredients = () => {
@@ -137,9 +154,15 @@ export const RecipePage = () => {
             </Button>
           )}
           {currentStep === recipeStepData.length - 1 && (
-            <Button variant="success" onClick={handleCompleteRecipe} className="mt-3">
-              Завершить изучение рецепта
-            </Button>
+            recipeStatusState === recipeStatus.FullyCompleted ? (
+              <Button variant="info" onClick={handleViewCompleteRecipe} className="mt-3">
+                Завершить просмотр рецепта
+              </Button>
+            ) : (
+              <Button variant="success" onClick={handleCompleteRecipe} className="mt-3">
+                Завершить изучение рецепта
+              </Button>
+            )
           )}
         </div>
       )}
