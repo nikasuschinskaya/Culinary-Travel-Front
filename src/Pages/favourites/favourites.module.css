@@ -8,6 +8,10 @@
   }
   
   .centeredContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;;
     background-color: #ffffff; 
     padding: 20px;
     border-radius: 8px;
@@ -15,9 +19,11 @@
   }
   
   .recipeButtonsContainer {
-    display: flex;
-    flex-wrap: wrap;
     gap: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   .recipeButton {

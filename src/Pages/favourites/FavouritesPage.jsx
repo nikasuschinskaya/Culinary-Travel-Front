@@ -18,18 +18,17 @@ export const FavouritesPage = () => {
   }, []);
 
   const handleRecipeClick = (recipe) => {
-    
-    console.log(`Recipe clicked: ${recipe.name}`);
+    // navigate(`/book/${recipe.countryShortName}/recipe`);
   };
 
   return (
-    <div className={styles.pageContainer}>
+    // <div className={styles.pageContainer}>
       <Container className={styles.centeredContainer}>
         <h1>Избранные рецепты</h1>
         <div className={styles.recipeButtonsContainer}>
           {favoriteRecipes.map((recipe) => (
             <Button
-              key={recipe.id}
+              key={recipe.name}
               onClick={() => handleRecipeClick(recipe)}
               className={styles.recipeButton}
             >
@@ -38,6 +37,6 @@ export const FavouritesPage = () => {
           ))}
         </div>
       </Container>
-    </div>
+    // </div>
   );
 };

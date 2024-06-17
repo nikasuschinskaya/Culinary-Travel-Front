@@ -155,8 +155,8 @@ class CulinaryApi {
   async addRecipeToFavorite(orderalNumber, country, userId) {
     try {
       const response = await axios.post(
-        `${baseUrl}/${country}/${orderalNumber}/like`,
-        userId,
+        `${baseUrl}/${country}/${orderalNumber}/like?userId=${userId}`,
+        null,
         { withCredentials: true }
       );
       console.log(response.data);

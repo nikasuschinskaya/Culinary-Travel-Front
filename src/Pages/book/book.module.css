@@ -1,26 +1,49 @@
 .book-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* background-image: url("/images/note.png"); */
-    background-size: 40%;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-image: url("/images/note.png"); */
+  background-size: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: max-content;
+  background-image: none;
+  background-color: #ffffff; 
+}
 
-    background-color: #ffffff; 
-    /* min-height: max-content;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    background-image: none;  */
-  }
+.recipe-buttons-container {
+  gap: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .recipe-buttons-container {
-    gap: 10px;
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.favouriteIcon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s; 
+}
+
+.favouriteIcon:hover {
+  transform: scale(1.2); 
+}
+
+.recipeButtonContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.imageFavouriteYes {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s; 
+}
+
+.imageFavouriteYes:hover {
+  transform: scale(1.2); 
 }

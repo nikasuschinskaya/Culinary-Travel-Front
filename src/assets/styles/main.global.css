@@ -3,6 +3,7 @@
 :root {
   --color-white: #fff;
   --color-black: #000;
+  --color-brauny: #783F1B;
   --color-primary: #0056b3;
   --color-valid: limegreen;
   --color-invalid: red;
@@ -76,6 +77,7 @@ body {
   min-width: 320px;
   font-family: var(--body-font);
   background-image: url("/images/backgroung.jpg");
+  background-color: #feffd2 ;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

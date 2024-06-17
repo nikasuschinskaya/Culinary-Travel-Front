@@ -1,0 +1,23 @@
+.navbar {
+    background-color: #633418 !important;
+  }
+  
+  .brand {
+    color: #FEFEEC !important;
+  }
+  
+  .userPoints {
+    color: #FEFEEC !important;
+  }
+  
+  .customButton {
+    color: #FEFEEC !important;
+    border-color: #FEFEEC !important;
+  }
+  
+  .customButton:hover {
+    color: #633418 !important;
+    background-color: #FEFEEC !important;
+    border-color: #FEFEEC !important;
+  }
+  
