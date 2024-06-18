@@ -3,11 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("/images/check-list.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
+  background-color: #262626;
+  /* background-image: url("/images/check-list.png"); */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+  min-height: 92vh;
 }
 
 .countries-list {
@@ -18,8 +19,9 @@
 
 .country-item {
   margin: 20px;
-  padding: 20px;
-  background-color: var(--background-white);
+  padding: 60px;
+  background-color: #6c6c6c;
+  color: #ffffff;
   border-radius: 10px;
   box-shadow: var(--box-shadow-f1);
   text-align: center;
@@ -34,4 +36,12 @@
 
 .country-flag.colorful {
   filter: none;
+}
+
+.countries-carousel {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

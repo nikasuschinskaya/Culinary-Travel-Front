@@ -112,7 +112,7 @@ export const TestPage = () => {
                         )}
                         {showNextButton && (
                             <Button variant="primary" className={styles.nextButton} onClick={handleNext}>
-                                Далее
+                                Перейти к следующему этапу
                             </Button>
                         )}
                     </div>

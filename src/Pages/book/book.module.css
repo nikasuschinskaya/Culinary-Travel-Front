@@ -4,31 +4,38 @@
   justify-content: center;
   align-items: center;
   /* background-image: url("/images/note.png"); */
-  background-size: 40%;
+  /* background-size: 40%;
   background-position: center;
-  background-repeat: no-repeat;
-  min-height: max-content;
-  background-image: none;
-  background-color: #ffffff; 
+  background-repeat: no-repeat; 
+  min-height: max-content; */
+  /* background-image: none !important; */
+  background-color: #383838;
+  padding: 15px;
+  min-height: 92vh;
 }
 
 .recipe-buttons-container {
   gap: 10px;
   margin: 10px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #c5c4c4;
+  border-radius: 8px;
+  min-height: 82vh;
+  min-width: 82vh;
 }
 
 .favouriteIcon {
-  width: 24px;
-  height: 24px;
+  width: 38px;
+  height: 38px;
   cursor: pointer;
-  transition: transform 0.2s; 
+  transition: transform 0.2s;
 }
 
 .favouriteIcon:hover {
-  transform: scale(1.2); 
+  transform: scale(1.2);
 }
 
 .recipeButtonContainer {
@@ -37,13 +44,30 @@
   gap: 10px;
 }
 
-.imageFavouriteYes {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  transition: transform 0.2s; 
+.customButton {
+  color: #262626;
+  background: #FFFFFF;
+  border-color: #262626;
+  font-size: 18px !important; 
+  font-weight: bold !important;
+  padding: 10px 20px !important;
 }
 
-.imageFavouriteYes:hover {
-  transform: scale(1.2); 
+.customButton.primary {
+  color: #262626 !important;
+  background: #FFFFFF !important;
+  border-color: #262626 !important;
 }
+
+.customButton.secondary {
+  background: #54585c !important;
+  color: white !important;
+  border-color: #54585c !important;
+}
+
+.customButton:hover {
+  color: #FFFFFF !important;
+  background: #262626 !important;
+  border-color: #262626 !important;
+}
+

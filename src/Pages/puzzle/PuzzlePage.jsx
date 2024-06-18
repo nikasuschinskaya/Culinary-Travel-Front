@@ -20,8 +20,10 @@ export const PuzzlePage = () => {
   const createAndShufflePuzzlePieces = () => {
     const recipePhotoURL = localStorage.getItem('recipePhotoURL');
     const tempPieces = [];
-    const pieceSize = 100; 
-    const puzzleSize = 300; 
+    // const pieceSize = 100; 
+    // const puzzleSize = 300; 
+    const pieceSize = 133.33; // увеличенный размер кусочков
+    const puzzleSize = 400; // увеличенный размер пазла
 
     for (let i = 0; i < 9; i++) {
       const positionX = (i % 3) * pieceSize;
@@ -91,6 +93,7 @@ export const PuzzlePage = () => {
 
   return (
     <Container className={styles.container}>
+      <h2>Соберите пазл</h2>
       <Row>
         <Col md={6}>
           <div className={styles["puzzle-board"]}>
@@ -117,9 +120,9 @@ export const PuzzlePage = () => {
       {checkPuzzleCompletion() && (
         <div>
           <Alert variant="success" className={styles.successAlert}>
-            <Alert.Heading>Пазл завершен!</Alert.Heading>
+            <Alert.Heading className={styles.alertHeading}>Пазл завершен!</Alert.Heading>
           </Alert>
-          <Button variant="primary" className={styles.nextButton} onClick={handleNextClick}>Далее</Button>
+          <Button variant="primary" className={styles.nextButton} onClick={handleNextClick}>Перейти к следующему этапу</Button>
         </div>
       )}
     </Container>

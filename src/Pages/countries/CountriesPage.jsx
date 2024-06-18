@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
 
-import { Button } from "react-bootstrap";
+import { Button, Carousel } from "react-bootstrap";
 import styles from "./countries.module.css";
-import { recipeStatus } from "../../config/recipeStatus.config";
 
 export const CountriesPage = () => {
   const { userPoints, setUserPoints } = useUserContext();
@@ -41,18 +40,17 @@ export const CountriesPage = () => {
   };
 
   const handleOpenCountryRecipes = async (shortName) => {
-    // localStorage.setItem(`recipeStatus1`, recipeStatus.Started);
     navigate(`/book/${shortName}`);
   };
 
   const renderButton = (country) => {
-
     const isOpened = userOpenedCountriesNames && userOpenedCountriesNames.includes(country.shortName);
+    const isDisabled = parseInt(userPoints) < country.pointsToOpen;
 
     if (isOpened) {
       return (
         <Button 
-          variant="primary"
+          variant="info"
           onClick={() => handleOpenCountryRecipes(country.shortName)}>
           Просмотреть рецепты
         </Button>
@@ -60,9 +58,9 @@ export const CountriesPage = () => {
     } else {
       return (
         <Button
-          variant={parseInt(userPoints) < country.pointsToOpen ? "secondary" : "primary"}
+          variant={isDisabled ? "secondary" : "primary"}
           onClick={() => handleBuyCountry(country.shortName, country.pointsToOpen)}
-          disabled={parseInt(userPoints) < country.pointsToOpen}>
+          disabled={isDisabled}>
           Открыть страну
         </Button>
       );
@@ -71,28 +69,30 @@ export const CountriesPage = () => {
 
   return (
     <div className={styles["countries-container"]}>
-      <h1>Страны</h1>
-      <div className={styles["countries-list"]}>
+      <h1  style={{color: '#FFFFFF'}} >Страны</h1>
+      <Carousel className={styles["countries-carousel"]}>
         {countries.map((country) => {
           const isOpened = userOpenedCountriesNames && userOpenedCountriesNames.includes(country.shortName);
           return (
-            <div key={country.shortName} className={styles["country-item"]}>
-              <img
-                src={country.flagURL}
-                alt={`${country.name} flag`}
-                className={`${styles["country-flag"]} ${isOpened ? styles["colorful"] : ""}`}
-                style={{ width: "30%", height: "auto" }}
-              />
-              <h3>{country.name}</h3>
-              <p>
-                Стоимость открытия страны: {country.pointsToOpen}{" "}
-                <img src="/images/points.png" height="30" width="30" alt="Points" />
-              </p>
-              {renderButton(country)}
-            </div>
+            <Carousel.Item key={country.shortName}>
+              <div className={styles["country-item"]}>
+                <img
+                  src={country.flagURL}
+                  alt={`${country.name} flag`}
+                  className={`${styles["country-flag"]} ${isOpened ? styles["colorful"] : ""}`}
+                  style={{ width: "30%", height: "auto" }}
+                />
+                <h3>{country.name}</h3>
+                <p>
+                  Стоимость открытия страны: {country.pointsToOpen}{" "}
+                  <img src="/images/points.png" height="30" width="30" alt="Points" />
+                </p>
+                {renderButton(country)}
+              </div>
+            </Carousel.Item>
           );
         })}
-      </div>
+      </Carousel>
     </div>
   );
 };

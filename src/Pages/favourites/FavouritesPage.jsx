@@ -22,21 +22,21 @@ export const FavouritesPage = () => {
   };
 
   return (
-    // <div className={styles.pageContainer}>
+    <div className={styles.pageContainer}>
       <Container className={styles.centeredContainer}>
         <h1>Избранные рецепты</h1>
         <div className={styles.recipeButtonsContainer}>
           {favoriteRecipes.map((recipe) => (
-            <Button
-              key={recipe.name}
-              onClick={() => handleRecipeClick(recipe)}
-              className={styles.recipeButton}
-            >
-              {recipe.name}
-            </Button>
+             <Button
+             key={recipe.name}
+             onClick={() => handleRecipeClick(recipe)}
+             className={`${styles.recipeButton} ${styles.hoverButton}`}
+           >
+             {recipe.name}
+           </Button>
           ))}
         </div>
       </Container>
-    // </div>
+    </div>
   );
 };

@@ -1,32 +1,42 @@
 .pageContainer {
-    background-color: #726868; 
-    min-height: max-content;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    background-image: none; 
-  }
-  
-  .centeredContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;;
-    background-color: #ffffff; 
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .recipeButtonsContainer {
-    gap: 10px;
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .recipeButton {
-    margin: 5px;
-  }
-  
+  background-color: #726868; 
+  min-height: max-content;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  background-image: none; 
+  min-height: 92vh;
+}
+
+.centeredContainer {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  color: #FFFFFF;
+  background-color: #262626; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  min-height: 82vh;
+}
+
+.recipeButtonsContainer {
+  gap: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipeButton {
+  color: #262626 !important;
+  background: #FFFFFF !important;
+  border-color: #262626 !important;
+}
+
+.recipeButton:hover {
+  color: #FFFFFF !important;
+  background: #262626 !important;
+  border-color: #ffffff !important;
+}
