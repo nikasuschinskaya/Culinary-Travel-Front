@@ -76,11 +76,13 @@ body {
   place-items: center;
   min-width: 320px;
   font-family: var(--body-font);
-  background-image: url("/images/backgroung.jpg");
+  /* background-image: url("/images/backgroung.jpg");
   background-color: #feffd2 ;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center; */
+
+  background-color: #383838; 
   min-height: 100vh;
 }
 

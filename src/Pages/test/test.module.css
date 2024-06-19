@@ -1,18 +1,32 @@
 .container {
   margin-top: 50px;
-  width: 100%;
-  max-width: 800px;
-  min-height: 560px;
+  max-width: 600px; /* Увеличен размер контейнера */
+  min-height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: 40px;
-  background-image: url("/images/puzzle-note.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  scale: 1.2;
+  gap: 30px;
+  background-color: #bebebe;
+  border-radius: 8px;
+  font-weight: bold;
+
+}
+
+.testContent {
+  background-color: #e0e0e0; /* Более светлый цвет для фона теста */
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+}
+
+.titleQuestion {
+  font-size: 25px;
+}
+
+.questionBlock {
+  margin-bottom: 20px;
+  font-size: 18px;
 }
 
 .answerOption {
@@ -21,41 +35,115 @@
 
 .answerOption label {
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .nextButton {
   margin-top: 20px; 
+  width: 100%;
+  color: #262626 !important;
+  background: #FFFFFF !important;
+  border-color: #262626 !important;
+  font-size: 18px !important; 
+  font-weight: bold !important;
+  padding: 10px 20px !important;
 }
 
-.answerButton{
+.nextButton:hover {
+  color: #FFFFFF !important;
+  background: #262626 !important;
+  border-color: #ffffff !important;
+}
+
+.answerButton {
   margin-top: 20px;
   width: 100%;
+  font-size: 18px !important; 
+  padding: 10px 20px !important;
+  font-weight: bold !important;
 }
 
 .alert {
   margin-top: 20px;
+  font-weight: bold !important;
 }
 
 .correct {
-  border: 2px solid green;
+  border: 2px solid rgb(19, 171, 19);
   padding: 10px;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .incorrect {
   border: 2px solid red;
   padding: 10px;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .correctMessage {
-  color: green;
+  color: rgb(19, 171, 19);
+  font-size: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
 .incorrectMessage {
   color: red;
+  font-size: 20px;
   font-weight: bold;
+  text-align: center;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 30px; /* Отступ для кастомного чекбокса */
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkboxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.customCheckbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.checkboxContainer input:checked ~ .customCheckbox {
+  background-color: #2196F3;
+}
+
+.customCheckbox:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkboxContainer input:checked ~ .customCheckbox:after {
+  display: block;
+}
+
+.checkboxContainer .customCheckbox:after {
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }

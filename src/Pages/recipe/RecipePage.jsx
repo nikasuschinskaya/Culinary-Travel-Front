@@ -17,9 +17,13 @@ export const RecipePage = () => {
   const [error, setError] = useState(null);
   const [showIngredients, setShowIngredients] = useState(true);
   const [recipeStatusState, setRecipeStatusState] = useState(null);
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const userId = localStorage.getItem('userId');
   const recipeId = localStorage.getItem('recipeId');
   const recipeOrderalNumber = localStorage.getItem('recipeOrderalNumber');
+  const speedOfPrint = 50;
 
   useEffect(() => {
     const fetchRecipeStepData = () => {
@@ -53,7 +57,19 @@ export const RecipePage = () => {
     fetchRecipeStatus();
   }, [recipeId]);
 
+  useEffect(() => {
+    if (currentIndex < (recipeStepData[currentStep]?.title?.length || 0)) {
+      const timeoutId = setTimeout(() => {
+        setDisplayedText((prev) => prev + recipeStepData[currentStep].title[currentIndex]);
+        setCurrentIndex((prev) => prev + 1);
+      }, speedOfPrint); 
+      return () => clearTimeout(timeoutId);
+    }
+  }, [currentIndex, recipeStepData, currentStep]);
+
   const handleNextStep = () => {
+    setDisplayedText('');
+    setCurrentIndex(0);
     setCurrentStep((prevStep) => prevStep + 1);
   };
 
@@ -115,7 +131,11 @@ export const RecipePage = () => {
                     <Nav.Item key={index}>
                       <Nav.Link
                         eventKey={`step-${index}`}
-                        onClick={() => setCurrentStep(index)}
+                        onClick={() => {
+                          setCurrentStep(index);
+                          setDisplayedText('');
+                          setCurrentIndex(0);
+                        }}
                         disabled={index > currentStep}
                       >
                         Шаг {index + 1}
@@ -130,40 +150,48 @@ export const RecipePage = () => {
                 <Tab.Content>
                   {recipeStepData.map((step, index) => (
                     <Tab.Pane key={index} eventKey={`step-${index}`}>
-                      <h2>{step.title}</h2>
-                      <img src={step.gifURL} alt="Иллюстрация" className={styles.stepImage} />
-                      <div className={styles.ingredients}>
-                        {step.ingredients.map((ingredient, idx) => {
-                          return ingredient ? (
-                            <div key={idx} className={styles.ingredient}>
-                              <img src={ingredient.photoURL} alt={ingredient.value} className={styles.ingredientImage} />
-                              <p>{ingredient.value} </p>
-                            </div>
-                          ) : null;
-                        })}
-                      </div>
+                      <Row>
+                        <Col md={6} className={styles.leftColumn}>
+                          <img src={step.gifURL} alt="Иллюстрация" className={styles.stepImage} />
+                          {currentStep < recipeStepData.length - 1 && (
+                            <Button onClick={handleNextStep} className={styles.nextButton}>
+                              Следующий шаг
+                            </Button>
+                          )}
+                          {currentStep === recipeStepData.length - 1 && (
+                            recipeStatusState === recipeStatus.FullyCompleted ? (
+                              <Button variant="info" onClick={handleViewCompleteRecipe} className="mt-3">
+                                Завершить просмотр рецепта
+                              </Button>
+                            ) : (
+                              <Button variant="success" onClick={handleCompleteRecipe} className="mt-3">
+                                Завершить изучение рецепта
+                              </Button>
+                            )
+                          )}
+                        </Col>
+                        <Col md={6} className={styles.rightColumn}>
+                          <h2>ОПИСАНИЕ</h2>
+                          <p className={styles.animatedText} lang="ru">{displayedText}</p>
+                          <h2>ИНГРЕДИЕНТЫ</h2>
+                          <div className={styles.ingredients}>
+                            {step.ingredients.map((ingredient, idx) => {
+                              return ingredient ? (
+                                <div key={idx} className={styles.ingredient}>
+                                  <img src={ingredient.photoURL} alt={ingredient.value} className={styles.ingredientImage} />
+                                  <p className={styles.text}>{ingredient.value} </p>
+                                </div>
+                              ) : null;
+                            })}
+                          </div>
+                        </Col>
+                      </Row>
                     </Tab.Pane>
                   ))}
                 </Tab.Content>
               </Col>
             </Row>
           </Tab.Container>
-          {currentStep < recipeStepData.length - 1 && (
-            <Button variant="primary" onClick={handleNextStep} className="mt-3">
-              Следующий шаг
-            </Button>
-          )}
-          {currentStep === recipeStepData.length - 1 && (
-            recipeStatusState === recipeStatus.FullyCompleted ? (
-              <Button variant="info" onClick={handleViewCompleteRecipe} className="mt-3">
-                Завершить просмотр рецепта
-              </Button>
-            ) : (
-              <Button variant="success" onClick={handleCompleteRecipe} className="mt-3">
-                Завершить изучение рецепта
-              </Button>
-            )
-          )}
         </div>
       )}
       <div className={styles.ingredientToggle} onClick={toggleIngredients}>
@@ -171,14 +199,14 @@ export const RecipePage = () => {
       </div>
       {showIngredients && (
         <div className={styles.ingredientList}>
-          <p>Время приготовления: {parseInt(localStorage.getItem('recipeCookingTimeMinutes'))} мин</p>
-          <p>Количество порций: {parseInt(localStorage.getItem('recipeNumberOfServings'))}</p>
+          <p className={styles.text}>Время приготовления: {parseInt(localStorage.getItem('recipeCookingTimeMinutes'))} мин</p>
+          <p className={styles.text}>Количество порций: {parseInt(localStorage.getItem('recipeNumberOfServings'))}</p>
           <h4>Ингредиенты:</h4>
           {ingredients.map((ingredient, index) => (
             <div key={index} className="d-flex align-items-center mb-2">
               <img src={ingredient.photoURL} alt={ingredient.value} className={`${styles.ingredientImage} me-2`} />
               <div>
-                <p>{ingredient.value}</p>
+                <p className={styles.text}>{ingredient.value}</p>
               </div>
             </div>
           ))}

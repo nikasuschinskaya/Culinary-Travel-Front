@@ -45,3 +45,38 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+
+.customButton {
+  /* color: #262626;
+  background: #FFFFFF;
+  border-color: #262626; */
+  font-size: 18px !important; 
+  font-weight: bold !important;
+  padding: 10px 20px !important;
+}
+
+.customButton.primary {
+  color: #262626 !important;
+  background: #FFFFFF !important;
+  border-color: #262626 !important;
+}
+
+.customButton.secondary {
+  background: #54585c !important;
+  color: white !important;
+  border-color: #54585c !important;
+}
+
+.customButton:hover {
+  color: #FFFFFF !important;
+  background: #262626 !important;
+  border-color: #262626 !important;
+}
+
+/* .customButton.info:hover {
+  color: #FFFFFF !important;
+  background: #2213c3 !important;
+  border-color: #2213c3 !important;
+} */
+

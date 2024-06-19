@@ -93,7 +93,7 @@ export const PuzzlePage = () => {
 
   return (
     <Container className={styles.container}>
-      <h2>Соберите пазл</h2>
+      <h1>ПАЗЛ</h1>
       <Row>
         <Col md={6}>
           <div className={styles["puzzle-board"]}>

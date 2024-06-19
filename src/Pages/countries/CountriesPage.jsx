@@ -51,6 +51,7 @@ export const CountriesPage = () => {
       return (
         <Button 
           variant="info"
+          className={`${styles.customButton}`}
           onClick={() => handleOpenCountryRecipes(country.shortName)}>
           Просмотреть рецепты
         </Button>
@@ -58,7 +59,8 @@ export const CountriesPage = () => {
     } else {
       return (
         <Button
-          variant={isDisabled ? "secondary" : "primary"}
+          // variant={isDisabled ? "secondary" : "primary"}
+          className={`${styles.customButton} ${!isDisabled ? styles.primary : styles.secondary}`}
           onClick={() => handleBuyCountry(country.shortName, country.pointsToOpen)}
           disabled={isDisabled}>
           Открыть страну

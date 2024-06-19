@@ -74,34 +74,38 @@ export const TestPage = () => {
 
     return (
         <Container className={styles.container}>
-            <div>
+            <h1>ТЕСТ</h1>
+            <div className={styles.testContent}>
                 {testData ? (
                     <div>
                         <ul>
                             {testData.questions.map((question, questionIndex) => (
                                 <li key={questionIndex} className={results[questionIndex] !== undefined ? (results[questionIndex] ? styles.correct : styles.incorrect) : ''}>
-                                    <p>{question.title}</p>
-                                    <ul>
-                                        {question.answerOptions.map((option, answerIndex) => (
-                                            <li key={answerIndex} className={styles.answerOption}>
-                                                <label>
-                                                    <input
-                                                        type="radio"
-                                                        name={`question-${questionIndex}`}
-                                                        value={answerIndex}
-                                                        onChange={() => handleAnswerSelect(questionIndex, answerIndex)}
-                                                        disabled={results[questionIndex] !== undefined}
-                                                    />
-                                                    {' '}{option.text}
-                                                </label>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    {results[questionIndex] !== undefined && (
-                                        <div className={results[questionIndex] ? styles.correctMessage : styles.incorrectMessage}>
-                                            {results[questionIndex] ? 'Правильно!' : 'Не угадали :('}
-                                        </div>
-                                    )}
+                                    <div className={styles.questionBlock}>
+                                        <p className={styles.titleQuestion}>{question.title}</p>
+                                        <ul>
+                                            {question.answerOptions.map((option, answerIndex) => (
+                                                <li key={answerIndex} className={styles.answerOption}>
+                                                    <label className={styles.checkboxContainer}>
+                                                        <input
+                                                            type="radio"
+                                                            name={`question-${questionIndex}`}
+                                                            value={answerIndex}
+                                                            onChange={() => handleAnswerSelect(questionIndex, answerIndex)}
+                                                            disabled={results[questionIndex] !== undefined}
+                                                        />
+                                                        <span className={styles.customCheckbox}></span>
+                                                        {' '}{option.text}
+                                                    </label>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        {results[questionIndex] !== undefined && (
+                                            <div className={results[questionIndex] ? styles.correctMessage : styles.incorrectMessage}>
+                                                {results[questionIndex] ? 'Правильно!' : 'Не угадали :('}
+                                            </div>
+                                        )}
+                                    </div>
                                 </li>
                             ))}
                         </ul>

@@ -1,79 +1,120 @@
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  
+  min-height: 92vh;
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 20px;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-p {
-    font-size: 16px;
-    line-height: 1.5;
+.text {
+  font-size: 18px;
+  line-height: 1.5;
 }
 
 button {
-    margin-top: 20px;
+  margin-top: 20px;
+}
+
+.nextButton {
+  margin-top: 20px; 
+  width: 100%;
+  color: #FFFFFF !important;
+  background: #262626 !important;
+  border-color: #ffffff !important;
+  font-size: 18px !important; 
+  font-weight: bold !important;
+  padding: 10px 20px !important;
+}
+
+.nextButton:hover {
+  color: #262626 !important;
+  background: #FFFFFF !important;
+  border-color: #262626 !important;
 }
 
 .stepImage {
-    width: 400px;  
-    height: 300px; 
-    object-fit: cover;
-  }
-  
+  width: 100%;  
+  height: auto; 
+  object-fit: cover;
+}
+
 .ingredientImage {
-    width: 50px;  
-    height: 50px; 
-    object-fit: cover;
-  }
-  
+  width: 50px;  
+  height: 50px; 
+  object-fit: cover;
+}
+
 .ingredients {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .ingredient {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .ingredientToggle {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1000;
-    transform: translateY(-50%);
-    border-radius: 5px 0 0 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  }
-  
+  position: fixed;
+  top: 50%;
+  right: 0;
+  background-color: #ffffff;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1000;
+  transform: translateY(-50%);
+  border-radius: 5px 0 0 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
 .ingredientIcon {
-    width: 50px;  
-    height: 50px; 
-  }
-  
+  width: 50px;  
+  height: 50px; 
+}
+
 .ingredientList {
-    position: fixed;
-    top: 50%;
-    right: 50px; 
-    background-color: white;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    z-index: 1000;
-    transform: translateY(-50%);
-    max-height: 70%;
-    overflow-y: auto;
-    width: 350px; 
-  }
+  position: fixed;
+  top: 50%;
+  right: 50px; 
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+  transform: translateY(-50%);
+  max-height: 70%;
+  overflow-y: auto;
+  width: 350px; 
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.animatedText {
+  /* white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word; */
+  /* line-height: 1.5; */
+  font-size: 28px;
+  hyphens: auto !important;
+}
