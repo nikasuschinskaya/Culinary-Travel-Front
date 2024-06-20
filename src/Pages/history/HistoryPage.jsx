@@ -12,7 +12,7 @@ export const HistoryPage = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const speedOfPrint = 50;
+  const speedOfPrint = 30;
 
   useEffect(() => {
     if (currentIndex < history.length) {

@@ -66,10 +66,12 @@ export const UserPage = () => {
             <h1 className={styles.title}>Личный кабинет пользователя {userName}</h1>
 
             <div className={styles["user-details"]}>
-                <div className={styles["user-rank"]}>
-                    Ранг: {userStatusLabel}
-                    {statusIcon && <img src={statusIcon} alt={userStatusLabel} className={styles["status-icon"]} />}
-                </div>
+                {completedRecipesCount > 0 && (
+                    <div className={styles["user-rank"]}>
+                        Ранг: {userStatusLabel}
+                        {statusIcon && <img src={statusIcon} alt={userStatusLabel} className={styles["status-icon"]} />}
+                    </div>
+                )}
                 <div className={styles["user-details-progress"]}>
                     <p>Открытые страны: {userOpenedCountries.length} / 5 </p>
                     <p>Пройденные рецепты: {completedRecipesCount} / {recipesCount}</p>
