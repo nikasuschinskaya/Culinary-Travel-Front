@@ -59,19 +59,19 @@ export const RegistrationPage = () => {
     <Container className="d-flex align-items-center justify-content-center">
       {success ? (
         <Alert variant="success" className={styles.successAlert}>
-          <img src="/images/success.png" alt="Успешно!" width="50" height="50" />
-          <Alert.Heading>Вы успешно зарегистрированы!</Alert.Heading>
-          <p>Для входа в приложение нажмите на кнопку {"Войти"}</p>
+          <img src="/images/success.png" alt="Успешно!" />
+          <p>Вы успешно зарегистрированы!</p>
+          <Alert.Heading>Для входа в приложение нажмите на кнопку {"Войти"}</Alert.Heading>
         </Alert>
       ) : (
         <section className={styles.root}>
           <Alert variant="danger" show={errMsg !== ""}>
             {errMsg}
           </Alert>
-          <h1>Регистрация</h1>
+          <h1 className={styles.regLabel}>Регистрация</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="username">
-              <Form.Label>Имя пользователя:</Form.Label>
+              <Form.Label className={styles.formLabel}>Имя пользователя:</Form.Label>
               <InputGroup>
                 <FormControl
                   type="text"
@@ -92,7 +92,7 @@ export const RegistrationPage = () => {
                   />
                 </Button>
               </InputGroup>
-              <Form.Text className="text-muted">
+              <Form.Text className={`text-muted ${styles.formText}`}>
                 {userFocus && user && !validName && (
                   <span>
                     <FontAwesomeIcon icon={faInfoCircle} />
@@ -103,7 +103,7 @@ export const RegistrationPage = () => {
               </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
-              <Form.Label>Пароль:</Form.Label>
+              <Form.Label className={styles.formLabel}>Пароль:</Form.Label>
               <InputGroup>
                 <FormControl
                   type="password"
@@ -124,7 +124,7 @@ export const RegistrationPage = () => {
                   />
                 </Button>
               </InputGroup>
-              <Form.Text className="text-muted">
+              <Form.Text className={`text-muted ${styles.formText}`}>
                 {pwdFocus && !validPwd && (
                   <span>
                     <FontAwesomeIcon icon={faInfoCircle} />
@@ -138,7 +138,7 @@ export const RegistrationPage = () => {
               </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="confirm_pwd">
-              <Form.Label>Подтвердите пароль:</Form.Label>
+              <Form.Label className={styles.formLabel}>Подтвердите пароль:</Form.Label>
               <InputGroup>
                 <FormControl
                   type="password"
@@ -159,7 +159,7 @@ export const RegistrationPage = () => {
                   />
                 </Button>
               </InputGroup>
-              <Form.Text className="text-muted">
+              <Form.Text className={`text-muted ${styles.formText}`}>
                 {matchFocus && !validMatch && (
                   <span>
                     <FontAwesomeIcon icon={faInfoCircle} />
@@ -169,7 +169,7 @@ export const RegistrationPage = () => {
               </Form.Text>
             </Form.Group>
             <Button
-              variant={(!validName || !validPwd || !validMatch) ? "secondary" : "primary"}
+              className={`${styles.customButton} ${(!validName || !validPwd || !validMatch) ? styles.secondary : styles.primary}`}
               type="submit"
               disabled={!validName || !validPwd || !validMatch}
             >

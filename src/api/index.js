@@ -167,6 +167,35 @@ class CulinaryApi {
     }
   }
 
+  async getRecipesCount() {
+    try {
+      const response = await axios.get(`${baseUrl}/all/count`);
+      return response.data;
+    } catch (error) {
+      console.error("Ошибка при получении количества рецептов:", error);
+      throw error;
+    }
+  }
+
+  async getRecipeByName(name) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/all/name?name=${name}`, 
+        null,
+        { withCredentials: true });
+        console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 404) {
+        console.error("Рецепт не найден:", error);
+        return { status: 404, message: 'Рецепт не найден' };
+      } else {
+        console.error("Ошибка при получении рецепта по имени:", error);
+        throw error;
+      }
+    }
+  }
+
 }
 
 export default new CulinaryApi();

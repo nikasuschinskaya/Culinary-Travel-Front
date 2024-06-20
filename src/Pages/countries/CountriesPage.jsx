@@ -51,7 +51,7 @@ export const CountriesPage = () => {
       return (
         <Button 
           variant="info"
-          className={`${styles.customButton}`}
+          className={`${styles.infoCustomButton}`}
           onClick={() => handleOpenCountryRecipes(country.shortName)}>
           Просмотреть рецепты
         </Button>
@@ -59,7 +59,6 @@ export const CountriesPage = () => {
     } else {
       return (
         <Button
-          // variant={isDisabled ? "secondary" : "primary"}
           className={`${styles.customButton} ${!isDisabled ? styles.primary : styles.secondary}`}
           onClick={() => handleBuyCountry(country.shortName, country.pointsToOpen)}
           disabled={isDisabled}>
@@ -85,10 +84,12 @@ export const CountriesPage = () => {
                   style={{ width: "30%", height: "auto" }}
                 />
                 <h3>{country.name}</h3>
-                <p>
-                  Стоимость открытия страны: {country.pointsToOpen}{" "}
-                  <img src="/images/points.png" height="30" width="30" alt="Points" />
-                </p>
+                {!isOpened && (
+                  <p>
+                    Стоимость открытия страны: {country.pointsToOpen}{" "}
+                    <img src="/images/points.png" height="30" width="30" alt="Points" />
+                  </p>
+                )}
                 {renderButton(country)}
               </div>
             </Carousel.Item>

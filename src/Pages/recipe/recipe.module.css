@@ -1,15 +1,21 @@
 .container {
-  max-width: 800px;
+  /* max-width: 800px; */
   margin: 0 auto;
   padding: 20px;
   background-color: #f8f9fa;
-  
   min-height: 92vh;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
 }
 
 h1 {
   color: #333;
   margin-bottom: 20px;
+}
+
+.textForStep {
+  font-size: 22px;
+  line-height: 1.5;
 }
 
 .text {
@@ -50,6 +56,12 @@ button {
   object-fit: cover;
 }
 
+.ingredientImageForStep {
+  width: 70px; 
+  height: 70px; 
+  object-fit: cover;
+}
+
 .ingredients {
   display: flex;
   flex-wrap: wrap;
@@ -61,6 +73,10 @@ button {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  background-color: #e7e7e7; 
+  border-radius: 8px;
+  margin-bottom: 10px; 
+  padding: 10px; 
 }
 
 .ingredientToggle {
@@ -82,6 +98,11 @@ button {
   height: 50px; 
 }
 
+.noteIcon {
+  width: 50px;  
+  height: 50px; 
+}
+
 .ingredientList {
   position: fixed;
   top: 50%;
@@ -98,6 +119,7 @@ button {
 }
 
 .leftColumn {
+  padding-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,16 +127,31 @@ button {
 }
 
 .rightColumn {
+  padding-top: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .animatedText {
-  /* white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word; */
-  /* line-height: 1.5; */
-  font-size: 28px;
+  font-size: 29px;
   hyphens: auto !important;
+  word-wrap: break-word;
+}
+
+.navLink {
+  font-size: 20px !important;
+}
+
+.customButton {
+  margin-top: 20px; 
+  width: 100%;
+  font-size: 18px !important; 
+  font-weight: bold !important;
+  padding: 10px 20px !important;
+}
+
+.note {
+  color: #0d6efd;
+  font-size: 0.9em;
+  margin-top: 1em;
 }

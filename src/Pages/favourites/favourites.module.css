@@ -1,24 +1,23 @@
 .pageContainer {
-  background-color: #726868; 
+  /* background-color: #726868; 
   min-height: max-content;
   display: flex;
   align-items: center; 
   justify-content: center; 
   background-image: none; 
+  min-height: 92vh; */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  background-color: #f8f9fa;
   min-height: 92vh;
 }
 
-.centeredContainer {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
-  color: #FFFFFF;
-  background-color: #262626; 
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  min-height: 82vh;
+.title {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .recipeButtonsContainer {
@@ -30,6 +29,9 @@
 }
 
 .recipeButton {
+  font-size: 18px !important; 
+  font-weight: bold !important;
+  padding: 10px 20px !important;
   color: #262626 !important;
   background: #FFFFFF !important;
   border-color: #262626 !important;

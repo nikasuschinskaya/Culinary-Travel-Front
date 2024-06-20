@@ -3,12 +3,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-image: url("/images/note.png"); */
-  /* background-size: 40%;
-  background-position: center;
-  background-repeat: no-repeat; 
-  min-height: max-content; */
-  /* background-image: none !important; */
   background-color: #383838;
   padding: 15px;
   min-height: 92vh;

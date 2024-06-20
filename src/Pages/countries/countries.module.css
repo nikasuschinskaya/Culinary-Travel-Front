@@ -46,6 +46,12 @@
   justify-content: center;
 }
 
+.infoCustomButton{
+  font-size: 18px !important; 
+  font-weight: bold !important;
+  padding: 10px 20px !important;
+  margin-top: 45px;
+}
 
 .customButton {
   /* color: #262626;

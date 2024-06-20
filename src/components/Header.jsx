@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button, Container, Navbar, Form } from "react-bootstrap";
+import { Button, Container, Navbar, Form, Nav } from "react-bootstrap";
 import { useUserContext } from "../context/UserContext";
 import styles from "./header.module.css";
 
@@ -31,35 +31,54 @@ export const Header = () => {
     navigate('/login');
   };
 
+  const isLoginOrHomePage = location.pathname === "/" || location.pathname === "/login";
+
   return (
     <>
       <Navbar
         collapseOnSelect
         expand="md"
-        // bg="dark"
-        // variant="dark"
         className={`w-100 d-flex align-items-center justify-content-between fixed-top ${styles.navbar}`}
       >
         <Container>
-          <Navbar.Brand className={`d-flex align-items-center gap-3 ${styles.brand}`}>
-            <img src="/images/logo.jpg" height="40" width="40" alt="Logo" />
-            Culinary Travel
-          </Navbar.Brand>
-          <Form className="d-flex">
-            {location.pathname !== "/" && location.pathname !== "/login" && (
-              <Navbar.Brand className={styles.userPoints}>
-                {userPoints}
-                <img src="/images/points.png" height="35" width="35" alt="Points" />
+          {isLoginOrHomePage ? (
+            <Navbar.Brand className={`d-flex align-items-center gap-3 ${styles.brand}`}>
+              <img src="/images/logo.jpg" height="40" width="40" alt="Logo" />
+              Culinary Travel
+            </Navbar.Brand>
+          ) : (
+            <>
+              <Navbar.Brand href='/user' className={`d-flex align-items-center gap-3 ${styles.brand}`}>
+                <img src="/images/logo.jpg" height="40" width="40" alt="Logo" />
+                Culinary Travel
               </Navbar.Brand>
-            )}
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id='responsive-navbar-nav'>
+                <Nav className='me-auto'>
+                  <Nav.Link href='/countries' className={styles.navlink}> Страны </Nav.Link>
+                  <Nav.Link href='/favourites' className={styles.navlink}> Избранное </Nav.Link>
+                </Nav>
+                <Form className='d-flex'>
+                  <Navbar.Brand className={styles.userPoints}>
+                    {userPoints}
+                    <img src="/images/points.png" height="35" width="35" alt="Points" />
+                  </Navbar.Brand>
+                  <Button variant="outline-info" onClick={handleLogout} className={styles.customButton}>
+                    Выйти
+                  </Button>
+                </Form>
+              </Navbar.Collapse>
+            </>
+          )}
+          <Form className="d-flex">
             {location.pathname === "/" && (
               <Button variant="outline-info" href="/login" className={styles.customButton}>
                 Войти
               </Button>
             )}
-            {location.pathname !== "/" && location.pathname !== "/login" && (
-              <Button variant="outline-info" onClick={handleLogout} className={styles.customButton}>
-                Выйти
+            {location.pathname === "/login" && (
+              <Button variant="outline-info" href="/" className={styles.customButton}>
+                Регистрация
               </Button>
             )}
           </Form>

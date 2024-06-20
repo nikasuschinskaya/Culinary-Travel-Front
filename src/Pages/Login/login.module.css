@@ -1,5 +1,4 @@
 .root {
-  margin-top: 50px;
   width: 100%;
   max-width: 600px;
   min-height: 500px;
@@ -8,12 +7,20 @@
   justify-content: flex-start;
   padding: 40px;
   margin-top: 50px;
-  background-image: url("/images/check-list.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+  border-radius: 8px;
+  background-color: #eeeeee;
 }
 
 label {
+  font-weight: bold;
+}
+
+.logLabel {
+  padding-bottom: 10px;
+}
+
+.formLabel {
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -25,15 +32,34 @@ label {
   margin-bottom: 20px;
 }
 
-.btn-primary {
+.customButton {
+  margin-top: 30px;
+  color: #262626;
+  background: #FFFFFF;
+  border-color: #262626;
+  font-size: 18px !important; 
+  font-weight: bold !important;
+  padding: 10px 20px !important;
   width: 100%;
 }
 
-.btn-primary:hover {
-  background-color: var(--color-primary);
-  border-color: var(--border-primary);
+.customButton.primary {
+  color: #262626 !important;
+  background: #FFFFFF !important;
+  border-color: #262626 !important;
 }
 
+.customButton.secondary {
+  background: #54585c !important;
+  color: white !important;
+  border-color: #54585c !important;
+}
+
+.customButton:hover {
+  color: #FFFFFF !important;
+  background: #262626 !important;
+  border-color: #262626 !important;
+}
 .successAlert {
   position: fixed !important;
   top: 50%;

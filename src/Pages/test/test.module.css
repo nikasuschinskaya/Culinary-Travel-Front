@@ -1,6 +1,6 @@
 .container {
   margin-top: 50px;
-  max-width: 600px; /* Увеличен размер контейнера */
+  max-width: 600px; 
   min-height: 600px;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
 }
 
 .testContent {
-  background-color: #e0e0e0; /* Более светлый цвет для фона теста */
+  background-color: #e0e0e0; 
   padding: 20px;
   border-radius: 8px;
   width: 60%;
@@ -101,7 +101,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  padding-left: 30px; /* Отступ для кастомного чекбокса */
+  padding-left: 30px; 
   cursor: pointer;
   user-select: none;
 }

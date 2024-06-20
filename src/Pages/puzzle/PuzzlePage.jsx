@@ -20,10 +20,8 @@ export const PuzzlePage = () => {
   const createAndShufflePuzzlePieces = () => {
     const recipePhotoURL = localStorage.getItem('recipePhotoURL');
     const tempPieces = [];
-    // const pieceSize = 100; 
-    // const puzzleSize = 300; 
-    const pieceSize = 133.33; // увеличенный размер кусочков
-    const puzzleSize = 400; // увеличенный размер пазла
+    const pieceSize = 133.33; 
+    const puzzleSize = 400; 
 
     for (let i = 0; i < 9; i++) {
       const positionX = (i % 3) * pieceSize;

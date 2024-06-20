@@ -53,8 +53,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
-  width: 700px; /* Установка ширины Alert */
-  max-width: 80%; /* Максимальная ширина Alert в процентах */
+  width: 700px; 
+  max-width: 80%; 
   text-align: center;
   background: #383838 !important;
   color: #76f149 !important;

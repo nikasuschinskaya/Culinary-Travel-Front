@@ -3,8 +3,10 @@ import { Alert, Button, Col, Container, Nav, Row, Tab } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useUserContext } from "../../context/UserContext";
 import CulinaryApi from "../../api";
+
 import styles from "./recipe.module.css";
 import ingredientIcon from '/images/toggle.png';
+import noteIcon from '/images/exclamation_point.png';
 import { recipeStatus } from '../../config/recipeStatus.config';
 
 export const RecipePage = () => {
@@ -23,7 +25,7 @@ export const RecipePage = () => {
   const userId = localStorage.getItem('userId');
   const recipeId = localStorage.getItem('recipeId');
   const recipeOrderalNumber = localStorage.getItem('recipeOrderalNumber');
-  const speedOfPrint = 50;
+  const speedOfPrint = 30;
 
   useEffect(() => {
     const fetchRecipeStepData = () => {
@@ -32,7 +34,6 @@ export const RecipePage = () => {
 
       for (let i = 0; i < recipeStepsCount; i++) {
         const step = JSON.parse(localStorage.getItem(`recipeStep${i + 1}`));
-
         newRecipeSteps.push(step);
       }
 
@@ -62,7 +63,7 @@ export const RecipePage = () => {
       const timeoutId = setTimeout(() => {
         setDisplayedText((prev) => prev + recipeStepData[currentStep].title[currentIndex]);
         setCurrentIndex((prev) => prev + 1);
-      }, speedOfPrint); 
+      }, speedOfPrint);
       return () => clearTimeout(timeoutId);
     }
   }, [currentIndex, recipeStepData, currentStep]);
@@ -115,6 +116,24 @@ export const RecipePage = () => {
 
   const ingredients = getIngredients();
 
+  const formatTextWithNotes = (text) => {
+    const noteRegex = /!([^.!?]+[^.!?]*\.)/g;
+    const parts = text.split(noteRegex);
+
+    return parts.map((part, index) => {
+      if (index % 2 === 1) {
+        return (
+          <p key={index} className={styles.note}>
+            <img src={noteIcon} alt="Примечание" className={styles.noteIcon} />
+            {part}
+          </p>
+        );
+      } else {
+        return <p key={index}>{part}</p>;
+      }
+    });
+  };
+
   return (
     <Container className={styles.container}>
       {loading ? (
@@ -137,6 +156,7 @@ export const RecipePage = () => {
                           setCurrentIndex(0);
                         }}
                         disabled={index > currentStep}
+                        className={styles.navLink}
                       >
                         Шаг {index + 1}
                       </Nav.Link>
@@ -160,11 +180,11 @@ export const RecipePage = () => {
                           )}
                           {currentStep === recipeStepData.length - 1 && (
                             recipeStatusState === recipeStatus.FullyCompleted ? (
-                              <Button variant="info" onClick={handleViewCompleteRecipe} className="mt-3">
+                              <Button variant="primary" onClick={handleViewCompleteRecipe} className={styles.customButton}>
                                 Завершить просмотр рецепта
                               </Button>
                             ) : (
-                              <Button variant="success" onClick={handleCompleteRecipe} className="mt-3">
+                              <Button variant="success" onClick={handleCompleteRecipe} className={styles.customButton}>
                                 Завершить изучение рецепта
                               </Button>
                             )
@@ -172,18 +192,24 @@ export const RecipePage = () => {
                         </Col>
                         <Col md={6} className={styles.rightColumn}>
                           <h2>ОПИСАНИЕ</h2>
-                          <p className={styles.animatedText} lang="ru">{displayedText}</p>
-                          <h2>ИНГРЕДИЕНТЫ</h2>
-                          <div className={styles.ingredients}>
-                            {step.ingredients.map((ingredient, idx) => {
-                              return ingredient ? (
-                                <div key={idx} className={styles.ingredient}>
-                                  <img src={ingredient.photoURL} alt={ingredient.value} className={styles.ingredientImage} />
-                                  <p className={styles.text}>{ingredient.value} </p>
-                                </div>
-                              ) : null;
-                            })}
+                          <div className={styles.animatedText} lang="ru">
+                            {formatTextWithNotes(displayedText)}
                           </div>
+                          {step.ingredients.length > 0 && (
+                            <>
+                              <h2>ИНГРЕДИЕНТЫ</h2>
+                              <div className={styles.ingredients}>
+                                {step.ingredients.map((ingredient, idx) => {
+                                  return ingredient ? (
+                                    <div key={idx} className={styles.ingredient}>
+                                      <img src={ingredient.photoURL} alt={ingredient.value} className={styles.ingredientImageForStep} />
+                                      <p className={styles.textForStep}>{ingredient.value} </p>
+                                    </div>
+                                  ) : null;
+                                })}
+                              </div>
+                            </>
+                          )}
                         </Col>
                       </Row>
                     </Tab.Pane>

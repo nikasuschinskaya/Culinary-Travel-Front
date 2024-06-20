@@ -82,7 +82,9 @@ body {
   background-repeat: no-repeat;
   background-position: center; */
 
-  background-color: #383838; 
+  /* background-color: #383838;  */
+  
+  background-color: #272727; 
   min-height: 100vh;
 }
 
